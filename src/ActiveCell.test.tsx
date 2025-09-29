@@ -75,7 +75,7 @@ describe("<ActiveCell />", () => {
         onChange: expect.any(Function),
         exitEditMode: expect.any(Function),
       },
-      {}
+      undefined
     );
   });
   test("calls setCellData if value changed", () => {

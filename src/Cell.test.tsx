@@ -80,7 +80,10 @@ describe("<Cell />", () => {
     const element = document.querySelector(".Spreadsheet__cell");
     expect(element).not.toBeNull();
     expect(MOCK_DATA_VIEWER).toBeCalledTimes(1);
-    expect(MOCK_DATA_VIEWER).toBeCalledWith(EXAMPLE_DATA_VIEWER_PROPS, {});
+    expect(MOCK_DATA_VIEWER).toBeCalledWith(
+      EXAMPLE_DATA_VIEWER_PROPS,
+      undefined
+    );
     expect(MOCK_SET_CELL_DIMENSIONS).toBeCalledTimes(0);
   });
   test("renders read only", () => {
@@ -94,7 +97,7 @@ describe("<Cell />", () => {
     expect(MOCK_DATA_VIEWER).toBeCalledTimes(1);
     expect(MOCK_DATA_VIEWER).toBeCalledWith(
       { ...EXAMPLE_DATA_VIEWER_PROPS, cell: EXAMPLE_READ_ONLY_DATA },
-      {}
+      undefined
     );
     expect(MOCK_SET_CELL_DIMENSIONS).toBeCalledTimes(0);
   });
@@ -109,7 +112,7 @@ describe("<Cell />", () => {
     expect(MOCK_DATA_VIEWER).toBeCalledTimes(1);
     expect(MOCK_DATA_VIEWER).toBeCalledWith(
       { ...EXAMPLE_DATA_VIEWER_PROPS, cell: EXAMPLE_DATA_WITH_CLASS_NAME },
-      {}
+      undefined
     );
     expect(MOCK_SET_CELL_DIMENSIONS).toBeCalledTimes(0);
   });
@@ -212,7 +215,7 @@ describe("<Cell />", () => {
     expect(MOCK_CUSTOM_DATA_VIEWER).toBeCalledTimes(1);
     expect(MOCK_CUSTOM_DATA_VIEWER).toBeCalledWith(
       EXAMPLE_CUSTOM_DATA_VIEWER_PROPS,
-      {}
+      undefined
     );
     expect(MOCK_SET_CELL_DIMENSIONS).toBeCalledTimes(0);
   });

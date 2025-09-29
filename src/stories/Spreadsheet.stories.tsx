@@ -308,7 +308,7 @@ export const ControlledSelection: StoryFn<Props<StringCell>> = (props) => {
 };
 
 export const ControlledActivation: StoryFn<Props<StringCell>> = (props) => {
-  const spreadsheetRef = React.useRef<SpreadsheetRef>();
+  const spreadsheetRef = React.useRef<SpreadsheetRef>(null);
 
   const [activationPoint, setActivationPoint] = React.useState<Point>({
     row: 0,
