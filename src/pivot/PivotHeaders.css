@@ -1,0 +1,485 @@
+/* PivotHeaders Component Styles */
+
+/* Container styles */
+.PivotHeadersContainer {
+  position: relative;
+  display: grid;
+  background-color: var(--header-background-color, #f8f9fa);
+  border: 1px solid var(--border-color, #dee2e6);
+}
+
+.PivotHeadersContainer__corner {
+  grid-area: corner;
+  background-color: var(--corner-background-color, #e9ecef);
+  border-right: 2px solid var(--border-color, #dee2e6);
+  border-bottom: 2px solid var(--border-color, #dee2e6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--header-text-color, #495057);
+}
+
+.PivotHeadersContainer__column-headers {
+  grid-area: column-headers;
+  overflow-x: auto;
+  border-bottom: 2px solid var(--border-color, #dee2e6);
+}
+
+.PivotHeadersContainer__row-headers {
+  grid-area: row-headers;
+  overflow-y: auto;
+  border-right: 2px solid var(--border-color, #dee2e6);
+}
+
+/* Row headers styles */
+.PivotRowHeaders {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.PivotRowHeaders__level {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--border-color, #dee2e6);
+}
+
+.PivotRowHeaders__level:last-child {
+  border-bottom: none;
+}
+
+.PivotRowHeaders__cell {
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+}
+
+/* Column headers styles */
+.PivotColumnHeaders {
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+}
+
+.PivotColumnHeaders__level {
+  display: flex;
+  border-bottom: 1px solid var(--border-color, #dee2e6);
+  min-height: 32px;
+}
+
+.PivotColumnHeaders__level:last-child {
+  border-bottom: none;
+}
+
+.PivotColumnHeaders__cell {
+  border-right: 1px solid var(--border-color, #e0e0e0);
+  flex-shrink: 0;
+}
+
+/* Header cell styles */
+.PivotHeaderCell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 8px 12px;
+  background-color: var(--header-background-color, #f8f9fa);
+  border: 1px solid var(--border-color, #dee2e6);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--header-text-color, #495057);
+  transition: all 0.15s ease;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.PivotHeaderCell:hover {
+  background-color: var(--header-hover-background-color, #e9ecef);
+  color: var(--header-hover-text-color, #343a40);
+}
+
+.PivotHeaderCell:focus {
+  outline: 2px solid var(--focus-color, #007bff);
+  outline-offset: -2px;
+}
+
+/* Header cell content */
+.PivotHeaderCell__content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.PivotHeaderCell__label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+/* Expand/collapse button in headers */
+.PivotHeaderCell__expander {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  background: none;
+  border: 1px solid #adb5bd;
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  color: #6c757d;
+  transition: all 0.15s ease;
+}
+
+.PivotHeaderCell__expander:hover {
+  background-color: #f8f9fa;
+  border-color: #6c757d;
+  color: #495057;
+}
+
+.PivotHeaderCell__expander:active {
+  background-color: #e9ecef;
+  transform: scale(0.95);
+}
+
+.PivotHeaderCell__expander-icon {
+  display: block;
+  line-height: 1;
+}
+
+/* Header cell state modifiers */
+.PivotHeaderCell--expandable {
+  cursor: pointer;
+}
+
+.PivotHeaderCell--expandable:hover {
+  background-color: var(--expandable-hover-background-color, #f1f3f4);
+}
+
+.PivotHeaderCell--expanded {
+  background-color: var(--expanded-background-color, #e8f5e8);
+  border-color: var(--expanded-border-color, #28a745);
+}
+
+.PivotHeaderCell--selected {
+  background-color: var(--selected-background-color, #cce5ff) !important;
+  border-color: var(--selected-border-color, #007bff);
+  color: var(--selected-text-color, #004085);
+  font-weight: 600;
+}
+
+.PivotHeaderCell--hovered {
+  background-color: var(--hover-background-color, #f5f5f5);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Hierarchical level styles */
+.PivotHeaderCell--level-0 {
+  font-weight: 600;
+  background-color: var(--level-0-background-color, #f8f9fa);
+}
+
+.PivotHeaderCell--level-1 {
+  font-weight: 500;
+  background-color: var(--level-1-background-color, #f1f3f4);
+}
+
+.PivotHeaderCell--level-2 {
+  font-weight: 500;
+  background-color: var(--level-2-background-color, #e9ecef);
+}
+
+.PivotHeaderCell--level-3 {
+  font-weight: 400;
+  background-color: var(--level-3-background-color, #dee2e6);
+}
+
+.PivotHeaderCell--level-4 {
+  font-weight: 400;
+  background-color: var(--level-4-background-color, #ced4da);
+}
+
+/* Tooltip styles for headers */
+.PivotHeaderCell__tooltip {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background-color: #333;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  opacity: 0;
+  animation: fadeInHeaderTooltip 0.2s ease-out forwards;
+  max-width: 250px;
+}
+
+.PivotHeaderCell__tooltip::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-bottom-color: #333;
+}
+
+.PivotHeaderCell__tooltip-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.PivotHeaderCell__tooltip-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: #fff;
+}
+
+.PivotHeaderCell__tooltip-field,
+.PivotHeaderCell__tooltip-path,
+.PivotHeaderCell__tooltip-level,
+.PivotHeaderCell__tooltip-span,
+.PivotHeaderCell__tooltip-action {
+  font-size: 11px;
+  opacity: 0.9;
+  color: #e9ecef;
+}
+
+.PivotHeaderCell__tooltip-action {
+  font-style: italic;
+  margin-top: 2px;
+  color: #17a2b8;
+}
+
+@keyframes fadeInHeaderTooltip {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .PivotHeaderCell {
+    padding: 6px 8px;
+    font-size: 13px;
+    min-height: 28px;
+  }
+
+  .PivotHeaderCell__expander {
+    width: 14px;
+    height: 14px;
+    font-size: 9px;
+    margin-right: 4px;
+  }
+
+  .PivotHeaderCell__tooltip {
+    font-size: 11px;
+    padding: 6px 8px;
+    max-width: 200px;
+  }
+
+  .PivotColumnHeaders__level {
+    min-height: 28px;
+  }
+}
+
+/* Dark mode support */
+.Spreadsheet--dark-mode .PivotHeadersContainer {
+  background-color: var(--header-background-color, #2d3748);
+  border-color: var(--border-color, #4a5568);
+}
+
+.Spreadsheet--dark-mode .PivotHeadersContainer__corner {
+  background-color: var(--corner-background-color, #4a5568);
+  color: var(--header-text-color, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .PivotHeaderCell {
+  background-color: var(--header-background-color, #2d3748);
+  border-color: var(--border-color, #4a5568);
+  color: var(--header-text-color, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .PivotHeaderCell:hover {
+  background-color: var(--header-hover-background-color, #4a5568);
+  color: var(--header-hover-text-color, #f7fafc);
+}
+
+.Spreadsheet--dark-mode .PivotHeaderCell--expanded {
+  background-color: var(--expanded-background-color, #2f855a);
+  border-color: var(--expanded-border-color, #38a169);
+}
+
+.Spreadsheet--dark-mode .PivotHeaderCell--selected {
+  background-color: var(--selected-background-color, #2c5aa0) !important;
+  border-color: var(--selected-border-color, #3182ce);
+  color: var(--selected-text-color, #bee3f8);
+}
+
+.Spreadsheet--dark-mode .PivotHeaderCell__expander {
+  border-color: #718096;
+  color: #a0aec0;
+}
+
+.Spreadsheet--dark-mode .PivotHeaderCell__expander:hover {
+  background-color: #4a5568;
+  border-color: #e2e8f0;
+  color: #f7fafc;
+}
+
+.Spreadsheet--dark-mode .PivotHeaderCell__tooltip {
+  background-color: #4a5568;
+  color: #f7fafc;
+}
+
+.Spreadsheet--dark-mode .PivotHeaderCell__tooltip::before {
+  border-bottom-color: #4a5568;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .PivotHeaderCell {
+    border-width: 2px;
+    font-weight: 600;
+  }
+
+  .PivotHeaderCell--selected {
+    border-width: 3px;
+  }
+
+  .PivotHeaderCell__expander {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .PivotHeaderCell,
+  .PivotHeaderCell__expander {
+    transition: none;
+  }
+
+  .PivotHeaderCell__tooltip {
+    animation: none;
+    opacity: 1;
+  }
+
+  .PivotHeaderCell--hovered {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .PivotHeaderCell__tooltip {
+    display: none;
+  }
+
+  .PivotHeaderCell__expander {
+    display: none;
+  }
+
+  .PivotHeaderCell {
+    background-color: white !important;
+    color: black !important;
+    border-color: black !important;
+  }
+
+  .PivotHeaderCell--selected,
+  .PivotHeaderCell--expanded,
+  .PivotHeaderCell--hovered {
+    background-color: #f0f0f0 !important;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Grid layout for complex header structures */
+.PivotHeadersContainer--grid {
+  display: grid;
+  grid-template-areas:
+    "corner column-headers"
+    "row-headers data";
+  grid-template-rows: auto 1fr;
+  grid-template-columns: auto 1fr;
+}
+
+.PivotHeadersContainer--grid .PivotHeadersContainer__corner {
+  grid-area: corner;
+}
+
+.PivotHeadersContainer--grid .PivotHeadersContainer__column-headers {
+  grid-area: column-headers;
+}
+
+.PivotHeadersContainer--grid .PivotHeadersContainer__row-headers {
+  grid-area: row-headers;
+}
+
+/* Scrollable headers for large datasets */
+.PivotColumnHeaders--scrollable {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #adb5bd #f8f9fa;
+}
+
+.PivotColumnHeaders--scrollable::-webkit-scrollbar {
+  height: 6px;
+}
+
+.PivotColumnHeaders--scrollable::-webkit-scrollbar-track {
+  background: #f8f9fa;
+}
+
+.PivotColumnHeaders--scrollable::-webkit-scrollbar-thumb {
+  background: #adb5bd;
+  border-radius: 3px;
+}
+
+.PivotColumnHeaders--scrollable::-webkit-scrollbar-thumb:hover {
+  background: #6c757d;
+}
+
+.PivotRowHeaders--scrollable {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #adb5bd #f8f9fa;
+}
+
+.PivotRowHeaders--scrollable::-webkit-scrollbar {
+  width: 6px;
+}
+
+.PivotRowHeaders--scrollable::-webkit-scrollbar-track {
+  background: #f8f9fa;
+}
+
+.PivotRowHeaders--scrollable::-webkit-scrollbar-thumb {
+  background: #adb5bd;
+  border-radius: 3px;
+}
+
+.PivotRowHeaders--scrollable::-webkit-scrollbar-thumb:hover {
+  background: #6c757d;
+}

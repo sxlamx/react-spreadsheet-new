@@ -1,0 +1,526 @@
+/* PivotFieldSelector Component Styles */
+
+.PivotFieldSelector {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background-color: var(--background-color, #ffffff);
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.PivotFieldSelector--read-only {
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* Available fields section */
+.PivotFieldSelector__available {
+  margin-bottom: 8px;
+}
+
+/* Configuration areas */
+.PivotFieldSelector__configuration {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .PivotFieldSelector__configuration {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Drop zone styles */
+.DropZone {
+  min-height: 120px;
+  border: 2px dashed var(--border-color, #d0d7de);
+  border-radius: 8px;
+  padding: 12px;
+  background-color: var(--drop-zone-background, #f8f9fa);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.DropZone:hover {
+  background-color: var(--drop-zone-hover-background, #f0f2f5);
+  border-color: var(--drop-zone-hover-border, #a8a8a8);
+}
+
+.DropZone--drag-over {
+  border-color: var(--primary-color, #007bff);
+  background-color: var(--drop-zone-drag-background, #e3f2fd);
+  border-style: solid;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+}
+
+.DropZone--empty {
+  border-style: dashed;
+}
+
+.DropZone--read-only {
+  background-color: var(--disabled-background, #f5f5f5);
+  border-color: var(--disabled-border, #e0e0e0);
+  cursor: not-allowed;
+}
+
+/* Drop zone variants */
+.DropZone--available {
+  background-color: var(--available-background, #f8f9fa);
+  border-color: var(--available-border, #6c757d);
+}
+
+.DropZone--rows {
+  background-color: var(--rows-background, #fff3cd);
+  border-color: var(--rows-border, #ffc107);
+}
+
+.DropZone--columns {
+  background-color: var(--columns-background, #d4edda);
+  border-color: var(--columns-border, #28a745);
+}
+
+.DropZone--values {
+  background-color: var(--values-background, #cce5ff);
+  border-color: var(--values-border, #007bff);
+}
+
+.DropZone--filters {
+  background-color: var(--filters-background, #f8d7da);
+  border-color: var(--filters-border, #dc3545);
+}
+
+/* Drop zone header */
+.DropZone__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+}
+
+.DropZone__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-color, #333);
+}
+
+.DropZone__count {
+  font-size: 12px;
+  color: var(--secondary-text-color, #666);
+  background-color: var(--count-background, #e9ecef);
+  padding: 2px 6px;
+  border-radius: 12px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Drop zone content */
+.DropZone__content {
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+.DropZone__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  color: var(--placeholder-color, #999);
+  font-style: italic;
+  font-size: 14px;
+  text-align: center;
+}
+
+.DropZone__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Field chip styles */
+.FieldChip {
+  display: flex;
+  align-items: center;
+  background-color: var(--chip-background, #ffffff);
+  border: 1px solid var(--chip-border, #d0d7de);
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: grab;
+  transition: all 0.15s ease;
+  user-select: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.FieldChip:hover {
+  background-color: var(--chip-hover-background, #f8f9fa);
+  border-color: var(--chip-hover-border, #a8a8a8);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.FieldChip:active,
+.FieldChip--dragging {
+  cursor: grabbing;
+  transform: scale(0.98);
+  opacity: 0.8;
+}
+
+.FieldChip--read-only {
+  cursor: default;
+  opacity: 0.7;
+}
+
+/* Field chip variants by data type */
+.FieldChip--string {
+  border-left: 4px solid var(--string-color, #6c757d);
+}
+
+.FieldChip--number {
+  border-left: 4px solid var(--number-color, #007bff);
+}
+
+.FieldChip--date {
+  border-left: 4px solid var(--date-color, #28a745);
+}
+
+.FieldChip--boolean {
+  border-left: 4px solid var(--boolean-color, #ffc107);
+}
+
+/* Field chip content */
+.FieldChip__content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0; /* Allow flex items to shrink */
+}
+
+.FieldChip__icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  background-color: var(--icon-background, #e9ecef);
+  border-radius: 3px;
+  color: var(--icon-color, #495057);
+}
+
+.FieldChip__label {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-color, #333);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.FieldChip__remove {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: none;
+  color: var(--remove-color, #dc3545);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.15s ease;
+}
+
+.FieldChip__remove:hover {
+  background-color: var(--remove-hover-background, #f8d7da);
+}
+
+/* Aggregation controls */
+.FieldChip__aggregation {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.FieldChip__aggregation-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border: 1px solid var(--aggregation-border, #6c757d);
+  background-color: var(--aggregation-background, #f8f9fa);
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.FieldChip__aggregation-button:hover {
+  background-color: var(--aggregation-hover-background, #e9ecef);
+  border-color: var(--aggregation-hover-border, #495057);
+}
+
+.FieldChip__dropdown-arrow {
+  font-size: 8px;
+  transition: transform 0.15s ease;
+}
+
+.FieldChip__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  background-color: var(--dropdown-background, #ffffff);
+  border: 1px solid var(--dropdown-border, #d0d7de);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 100px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.FieldChip__dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  color: var(--text-color, #333);
+}
+
+.FieldChip__dropdown-item:hover {
+  background-color: var(--dropdown-item-hover, #f8f9fa);
+}
+
+.FieldChip__dropdown-item--selected {
+  background-color: var(--dropdown-item-selected, #e3f2fd);
+  font-weight: 600;
+}
+
+/* Filter controls */
+.FieldChip__filter {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.FieldChip__filter-operator,
+.FieldChip__filter-value {
+  padding: 2px 6px;
+  border: 1px solid var(--filter-border, #ced4da);
+  border-radius: 3px;
+  font-size: 11px;
+  background-color: var(--filter-background, #ffffff);
+}
+
+.FieldChip__filter-operator {
+  width: 80px;
+}
+
+.FieldChip__filter-value {
+  width: 80px;
+}
+
+.FieldChip__filter-operator:focus,
+.FieldChip__filter-value:focus {
+  outline: 2px solid var(--focus-color, #007bff);
+  outline-offset: -2px;
+  border-color: var(--focus-border, #007bff);
+}
+
+/* Dark mode support */
+.Spreadsheet--dark-mode .PivotFieldSelector {
+  background-color: var(--background-color, #1a202c);
+  border-color: var(--border-color, #4a5568);
+  color: var(--text-color, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .DropZone {
+  background-color: var(--drop-zone-background, #2d3748);
+  border-color: var(--drop-zone-border, #4a5568);
+}
+
+.Spreadsheet--dark-mode .DropZone:hover {
+  background-color: var(--drop-zone-hover-background, #4a5568);
+}
+
+.Spreadsheet--dark-mode .DropZone--drag-over {
+  background-color: var(--drop-zone-drag-background, #2c5aa0);
+  border-color: var(--primary-color, #3182ce);
+}
+
+.Spreadsheet--dark-mode .FieldChip {
+  background-color: var(--chip-background, #2d3748);
+  border-color: var(--chip-border, #4a5568);
+  color: var(--text-color, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .FieldChip:hover {
+  background-color: var(--chip-hover-background, #4a5568);
+}
+
+.Spreadsheet--dark-mode .FieldChip__icon {
+  background-color: var(--icon-background, #4a5568);
+  color: var(--icon-color, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .FieldChip__aggregation-button {
+  background-color: var(--aggregation-background, #4a5568);
+  border-color: var(--aggregation-border, #718096);
+  color: var(--text-color, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .FieldChip__dropdown {
+  background-color: var(--dropdown-background, #2d3748);
+  border-color: var(--dropdown-border, #4a5568);
+}
+
+.Spreadsheet--dark-mode .FieldChip__dropdown-item {
+  color: var(--text-color, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .FieldChip__dropdown-item:hover {
+  background-color: var(--dropdown-item-hover, #4a5568);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .PivotFieldSelector {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .DropZone {
+    min-height: 100px;
+    padding: 8px;
+  }
+
+  .DropZone__title {
+    font-size: 13px;
+  }
+
+  .FieldChip {
+    padding: 6px 8px;
+  }
+
+  .FieldChip__label {
+    font-size: 12px;
+  }
+
+  .FieldChip__filter-operator,
+  .FieldChip__filter-value {
+    width: 60px;
+    font-size: 10px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .DropZone {
+    border-width: 3px;
+  }
+
+  .FieldChip {
+    border-width: 2px;
+  }
+
+  .FieldChip__aggregation-button {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .DropZone,
+  .FieldChip,
+  .FieldChip__aggregation-button,
+  .FieldChip__dropdown-item {
+    transition: none;
+  }
+
+  .FieldChip:hover {
+    transform: none;
+  }
+
+  .FieldChip:active,
+  .FieldChip--dragging {
+    transform: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .FieldChip__remove {
+    display: none;
+  }
+
+  .FieldChip__aggregation-button {
+    border: 1px solid black;
+  }
+
+  .DropZone {
+    border: 1px solid black;
+    background-color: white;
+  }
+
+  .FieldChip {
+    background-color: white;
+    border: 1px solid black;
+  }
+}
+
+/* Animation for drag and drop feedback */
+@keyframes dragPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.DropZone--drag-over {
+  animation: dragPulse 1s ease-in-out infinite;
+}
+
+/* Loading state for field chips */
+.FieldChip--loading {
+  opacity: 0.6;
+  position: relative;
+}
+
+.FieldChip--loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
