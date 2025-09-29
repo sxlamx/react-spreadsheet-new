@@ -1,0 +1,851 @@
+/* Configuration Browser Styles */
+
+.ConfigurationBrowser {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background-color: var(--background-color, #ffffff);
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: 8px;
+  font-family: inherit;
+  max-height: 600px;
+  overflow: hidden;
+}
+
+.ConfigurationBrowser--loading {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Loading state */
+.ConfigurationBrowser__loading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--loading-text, #6c757d);
+  font-size: 14px;
+}
+
+.ConfigurationBrowser__spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--spinner-track, #e9ecef);
+  border-top: 2px solid var(--spinner-color, #007bff);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Filters section */
+.ConfigurationBrowser__filters {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ConfigurationBrowser__search {
+  flex: 1;
+  min-width: 200px;
+}
+
+.ConfigurationBrowser__search-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color, #d0d7de);
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: var(--input-background, #ffffff);
+  color: var(--text-color, #24292f);
+}
+
+.ConfigurationBrowser__search-input:focus {
+  outline: 2px solid var(--focus-color, #007bff);
+  outline-offset: -2px;
+  border-color: var(--focus-border, #007bff);
+}
+
+.ConfigurationBrowser__controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.ConfigurationBrowser__sort {
+  padding: 6px 8px;
+  border: 1px solid var(--border-color, #d0d7de);
+  border-radius: 4px;
+  font-size: 13px;
+  background-color: var(--input-background, #ffffff);
+  color: var(--text-color, #24292f);
+}
+
+.ConfigurationBrowser__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-color, #24292f);
+  cursor: pointer;
+}
+
+.ConfigurationBrowser__checkbox input {
+  margin: 0;
+}
+
+/* Tags filter */
+.ConfigurationBrowser__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 12px;
+  background-color: var(--tags-background, #f8f9fa);
+  border-radius: 6px;
+}
+
+.ConfigurationBrowser__tags-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--secondary-text, #6c757d);
+}
+
+.ConfigurationBrowser__tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.ConfigurationBrowser__tag {
+  padding: 4px 8px;
+  border: 1px solid var(--tag-border, #d0d7de);
+  background-color: var(--tag-background, #ffffff);
+  border-radius: 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  color: var(--tag-text, #24292f);
+}
+
+.ConfigurationBrowser__tag:hover {
+  background-color: var(--tag-hover-background, #f3f4f6);
+  border-color: var(--tag-hover-border, #a8a8a8);
+}
+
+.ConfigurationBrowser__tag--selected {
+  background-color: var(--tag-selected-background, #e3f2fd);
+  border-color: var(--tag-selected-border, #007bff);
+  color: var(--tag-selected-text, #0056b3);
+}
+
+/* Configuration list */
+.ConfigurationBrowser__list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ConfigurationBrowser__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  color: var(--empty-text, #8b949e);
+  font-style: italic;
+  text-align: center;
+}
+
+.ConfigurationBrowser__error {
+  padding: 12px;
+  background-color: var(--error-background, #f8d7da);
+  border: 1px solid var(--error-border, #f5c6cb);
+  border-radius: 4px;
+  color: var(--error-text, #721c24);
+  font-size: 14px;
+}
+
+/* Configuration item */
+.ConfigurationItem {
+  padding: 12px;
+  border: 1px solid var(--item-border, #e1e4e8);
+  border-radius: 6px;
+  background-color: var(--item-background, #ffffff);
+  transition: all 0.15s ease;
+}
+
+.ConfigurationItem:hover {
+  border-color: var(--item-hover-border, #d0d7de);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.ConfigurationItem__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.ConfigurationItem__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.ConfigurationItem__name {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--link-color, #007bff);
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+  text-decoration: none;
+}
+
+.ConfigurationItem__name:hover {
+  text-decoration: underline;
+  color: var(--link-hover-color, #0056b3);
+}
+
+.ConfigurationItem__favorite {
+  color: var(--favorite-color, #ffc107);
+  font-size: 16px;
+}
+
+.ConfigurationItem__actions {
+  display: flex;
+  gap: 4px;
+}
+
+.ConfigurationItem__action {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 14px;
+  color: var(--action-color, #6c757d);
+  transition: all 0.15s ease;
+  min-width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ConfigurationItem__action:hover {
+  background-color: var(--action-hover-background, #f8f9fa);
+  color: var(--action-hover-color, #495057);
+}
+
+.ConfigurationItem__action--danger:hover {
+  background-color: var(--danger-hover-background, #f8d7da);
+  color: var(--danger-hover-color, #721c24);
+}
+
+.ConfigurationItem__description {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: var(--description-text, #6c757d);
+  line-height: 1.4;
+}
+
+.ConfigurationItem__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ConfigurationItem__date {
+  font-size: 12px;
+  color: var(--meta-text, #8b949e);
+}
+
+.ConfigurationItem__tags {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.ConfigurationItem__tag {
+  padding: 2px 6px;
+  background-color: var(--item-tag-background, #f1f3f4);
+  border-radius: 8px;
+  font-size: 11px;
+  color: var(--item-tag-text, #5f6368);
+}
+
+.ConfigurationItem__summary {
+  font-size: 13px;
+  color: var(--summary-text, #24292f);
+  font-weight: 500;
+}
+
+/* Save Configuration Dialog */
+.SaveConfigurationDialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.SaveConfigurationDialog__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.SaveConfigurationDialog__content {
+  position: relative;
+  background-color: var(--dialog-background, #ffffff);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  margin: 16px;
+}
+
+.SaveConfigurationDialog__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--dialog-border, #e1e4e8);
+}
+
+.SaveConfigurationDialog__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dialog-title, #24292f);
+}
+
+.SaveConfigurationDialog__close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--close-button, #6c757d);
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.SaveConfigurationDialog__close:hover {
+  background-color: var(--close-hover-background, #f8f9fa);
+  color: var(--close-hover-color, #495057);
+}
+
+.SaveConfigurationDialog__form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.SaveConfigurationDialog__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.SaveConfigurationDialog__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--label-color, #24292f);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.SaveConfigurationDialog__input,
+.SaveConfigurationDialog__textarea {
+  padding: 8px 12px;
+  border: 1px solid var(--input-border, #d0d7de);
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: var(--input-background, #ffffff);
+  color: var(--input-text, #24292f);
+  resize: vertical;
+}
+
+.SaveConfigurationDialog__input:focus,
+.SaveConfigurationDialog__textarea:focus {
+  outline: 2px solid var(--focus-color, #007bff);
+  outline-offset: -2px;
+  border-color: var(--focus-border, #007bff);
+}
+
+.SaveConfigurationDialog__input:disabled,
+.SaveConfigurationDialog__textarea:disabled {
+  background-color: var(--disabled-background, #f5f5f5);
+  color: var(--disabled-text, #8b949e);
+  cursor: not-allowed;
+}
+
+.SaveConfigurationDialog__help {
+  font-size: 12px;
+  color: var(--help-text, #6c757d);
+  margin-top: 4px;
+}
+
+.SaveConfigurationDialog__actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding-top: 16px;
+  border-top: 1px solid var(--dialog-border, #e1e4e8);
+}
+
+.SaveConfigurationDialog__button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid;
+}
+
+.SaveConfigurationDialog__button--secondary {
+  background-color: var(--secondary-button-background, #ffffff);
+  border-color: var(--secondary-button-border, #d0d7de);
+  color: var(--secondary-button-text, #24292f);
+}
+
+.SaveConfigurationDialog__button--secondary:hover:not(:disabled) {
+  background-color: var(--secondary-button-hover-background, #f3f4f6);
+}
+
+.SaveConfigurationDialog__button--primary {
+  background-color: var(--primary-button-background, #007bff);
+  border-color: var(--primary-button-border, #007bff);
+  color: var(--primary-button-text, #ffffff);
+}
+
+.SaveConfigurationDialog__button--primary:hover:not(:disabled) {
+  background-color: var(--primary-button-hover-background, #0056b3);
+  border-color: var(--primary-button-hover-border, #0056b3);
+}
+
+.SaveConfigurationDialog__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--disabled-button-background, #f5f5f5);
+  color: var(--disabled-button-text, #8b949e);
+}
+
+/* Import Configuration Dialog */
+.ImportConfigurationDialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ImportConfigurationDialog__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.ImportConfigurationDialog__content {
+  position: relative;
+  background-color: var(--dialog-background, #ffffff);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  margin: 16px;
+}
+
+.ImportConfigurationDialog__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--dialog-border, #e1e4e8);
+}
+
+.ImportConfigurationDialog__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dialog-title, #24292f);
+}
+
+.ImportConfigurationDialog__close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--close-button, #6c757d);
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.ImportConfigurationDialog__close:hover {
+  background-color: var(--close-hover-background, #f8f9fa);
+  color: var(--close-hover-color, #495057);
+}
+
+.ImportConfigurationDialog__form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ImportConfigurationDialog__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ImportConfigurationDialog__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--label-color, #24292f);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ImportConfigurationDialog__file {
+  padding: 8px 12px;
+  border: 1px solid var(--input-border, #d0d7de);
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: var(--input-background, #ffffff);
+  color: var(--input-text, #24292f);
+}
+
+.ImportConfigurationDialog__textarea {
+  padding: 8px 12px;
+  border: 1px solid var(--input-border, #d0d7de);
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  background-color: var(--input-background, #ffffff);
+  color: var(--input-text, #24292f);
+  resize: vertical;
+  min-height: 200px;
+}
+
+.ImportConfigurationDialog__textarea:focus {
+  outline: 2px solid var(--focus-color, #007bff);
+  outline-offset: -2px;
+  border-color: var(--focus-border, #007bff);
+}
+
+.ImportConfigurationDialog__error {
+  padding: 12px;
+  background-color: var(--error-background, #f8d7da);
+  border: 1px solid var(--error-border, #f5c6cb);
+  border-radius: 4px;
+  color: var(--error-text, #721c24);
+  font-size: 14px;
+}
+
+.ImportConfigurationDialog__actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding-top: 16px;
+  border-top: 1px solid var(--dialog-border, #e1e4e8);
+}
+
+.ImportConfigurationDialog__button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid;
+}
+
+.ImportConfigurationDialog__button--secondary {
+  background-color: var(--secondary-button-background, #ffffff);
+  border-color: var(--secondary-button-border, #d0d7de);
+  color: var(--secondary-button-text, #24292f);
+}
+
+.ImportConfigurationDialog__button--secondary:hover:not(:disabled) {
+  background-color: var(--secondary-button-hover-background, #f3f4f6);
+}
+
+.ImportConfigurationDialog__button--primary {
+  background-color: var(--primary-button-background, #007bff);
+  border-color: var(--primary-button-border, #007bff);
+  color: var(--primary-button-text, #ffffff);
+}
+
+.ImportConfigurationDialog__button--primary:hover:not(:disabled) {
+  background-color: var(--primary-button-hover-background, #0056b3);
+  border-color: var(--primary-button-hover-border, #0056b3);
+}
+
+.ImportConfigurationDialog__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Configuration Toolbar */
+.ConfigurationToolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: var(--toolbar-background, #f8f9fa);
+  border: 1px solid var(--toolbar-border, #e1e4e8);
+  border-radius: 6px;
+  gap: 16px;
+}
+
+.ConfigurationToolbar__group {
+  display: flex;
+  gap: 4px;
+}
+
+.ConfigurationToolbar__button {
+  padding: 6px 12px;
+  border: 1px solid var(--toolbar-button-border, #d0d7de);
+  background-color: var(--toolbar-button-background, #ffffff);
+  color: var(--toolbar-button-text, #24292f);
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.ConfigurationToolbar__button:hover:not(:disabled) {
+  background-color: var(--toolbar-button-hover-background, #f3f4f6);
+  border-color: var(--toolbar-button-hover-border, #a8a8a8);
+}
+
+.ConfigurationToolbar__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--disabled-button-background, #f5f5f5);
+  color: var(--disabled-button-text, #8b949e);
+}
+
+.ConfigurationToolbar__button--highlighted {
+  background-color: var(--highlighted-button-background, #fff3cd);
+  border-color: var(--highlighted-button-border, #ffc107);
+  color: var(--highlighted-button-text, #856404);
+}
+
+.ConfigurationToolbar__button--highlighted:hover:not(:disabled) {
+  background-color: var(--highlighted-button-hover-background, #ffeaa7);
+  border-color: var(--highlighted-button-hover-border, #e0a800);
+}
+
+/* Dark mode support */
+.Spreadsheet--dark-mode .ConfigurationBrowser {
+  background-color: var(--background-color, #1a202c);
+  border-color: var(--border-color, #4a5568);
+  color: var(--text-color, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .ConfigurationBrowser__search-input,
+.Spreadsheet--dark-mode .ConfigurationBrowser__sort {
+  background-color: var(--input-background, #2d3748);
+  border-color: var(--input-border, #4a5568);
+  color: var(--input-text, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .ConfigurationBrowser__tag {
+  background-color: var(--tag-background, #2d3748);
+  border-color: var(--tag-border, #4a5568);
+  color: var(--tag-text, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .ConfigurationBrowser__tag--selected {
+  background-color: var(--tag-selected-background, #2c5aa0);
+  border-color: var(--tag-selected-border, #3182ce);
+  color: var(--tag-selected-text, #90cdf4);
+}
+
+.Spreadsheet--dark-mode .ConfigurationItem {
+  background-color: var(--item-background, #2d3748);
+  border-color: var(--item-border, #4a5568);
+}
+
+.Spreadsheet--dark-mode .SaveConfigurationDialog__content,
+.Spreadsheet--dark-mode .ImportConfigurationDialog__content {
+  background-color: var(--dialog-background, #2d3748);
+  color: var(--dialog-text, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .SaveConfigurationDialog__input,
+.Spreadsheet--dark-mode .SaveConfigurationDialog__textarea,
+.Spreadsheet--dark-mode .ImportConfigurationDialog__file,
+.Spreadsheet--dark-mode .ImportConfigurationDialog__textarea {
+  background-color: var(--input-background, #1a202c);
+  border-color: var(--input-border, #4a5568);
+  color: var(--input-text, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .ConfigurationToolbar {
+  background-color: var(--toolbar-background, #2d3748);
+  border-color: var(--toolbar-border, #4a5568);
+}
+
+.Spreadsheet--dark-mode .ConfigurationToolbar__button {
+  background-color: var(--toolbar-button-background, #4a5568);
+  border-color: var(--toolbar-button-border, #718096);
+  color: var(--toolbar-button-text, #e2e8f0);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .ConfigurationBrowser__filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ConfigurationBrowser__controls {
+    justify-content: space-between;
+  }
+
+  .ConfigurationItem__header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ConfigurationItem__actions {
+    align-self: flex-end;
+  }
+
+  .ConfigurationToolbar {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ConfigurationToolbar__group {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .SaveConfigurationDialog__content,
+  .ImportConfigurationDialog__content {
+    margin: 8px;
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .ConfigurationBrowser {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .ConfigurationItem__actions {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .ConfigurationBrowser__tag {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+
+  .SaveConfigurationDialog__form,
+  .ImportConfigurationDialog__form {
+    padding: 16px;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .ConfigurationBrowser,
+  .ConfigurationItem {
+    border-width: 2px;
+  }
+
+  .ConfigurationBrowser__tag,
+  .ConfigurationToolbar__button {
+    border-width: 2px;
+    font-weight: 600;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .ConfigurationBrowser__spinner {
+    animation: none;
+  }
+
+  .ConfigurationItem,
+  .ConfigurationBrowser__tag,
+  .ConfigurationToolbar__button,
+  .ConfigurationItem__action {
+    transition: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .ConfigurationBrowser__filters,
+  .ConfigurationToolbar,
+  .ConfigurationItem__actions {
+    display: none;
+  }
+
+  .ConfigurationBrowser {
+    border: none;
+    background: white;
+    color: black;
+  }
+
+  .SaveConfigurationDialog,
+  .ImportConfigurationDialog {
+    display: none;
+  }
+}

@@ -1,0 +1,536 @@
+/* Export Dialog Styles */
+
+.ExportDialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.ExportDialog__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.ExportDialog__content {
+  position: relative;
+  background-color: var(--dialog-background, #ffffff);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.ExportDialog__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--dialog-border, #e1e4e8);
+  flex-shrink: 0;
+}
+
+.ExportDialog__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dialog-title, #24292f);
+}
+
+.ExportDialog__close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--close-button, #6c757d);
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+.ExportDialog__close:hover:not(:disabled) {
+  background-color: var(--close-hover-background, #f8f9fa);
+  color: var(--close-hover-color, #495057);
+}
+
+.ExportDialog__close:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ExportDialog__body {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.ExportDialog__section {
+  margin-bottom: 24px;
+}
+
+.ExportDialog__section:last-child {
+  margin-bottom: 0;
+}
+
+.ExportDialog__section-title {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--section-title, #24292f);
+}
+
+/* Format Options */
+.ExportDialog__format-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ExportDialog__format-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--option-border, #d0d7de);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ExportDialog__format-option:hover {
+  background-color: var(--option-hover-background, #f6f8fa);
+  border-color: var(--option-hover-border, #a8a8a8);
+}
+
+.ExportDialog__format-option input[type="radio"] {
+  margin: 2px 0 0 0;
+  flex-shrink: 0;
+}
+
+.ExportDialog__format-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ExportDialog__format-info strong {
+  font-size: 14px;
+  color: var(--format-title, #24292f);
+}
+
+.ExportDialog__format-info span {
+  font-size: 12px;
+  color: var(--format-description, #656d76);
+}
+
+/* Form Fields */
+.ExportDialog__field {
+  margin-bottom: 16px;
+}
+
+.ExportDialog__label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--label-color, #24292f);
+}
+
+.ExportDialog__input,
+.ExportDialog__select {
+  padding: 8px 12px;
+  border: 1px solid var(--input-border, #d0d7de);
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: var(--input-background, #ffffff);
+  color: var(--input-text, #24292f);
+  transition: border-color 0.15s ease;
+}
+
+.ExportDialog__input:focus,
+.ExportDialog__select:focus {
+  outline: 2px solid var(--focus-color, #007bff);
+  outline-offset: -2px;
+  border-color: var(--focus-border, #007bff);
+}
+
+.ExportDialog__input:disabled,
+.ExportDialog__select:disabled {
+  background-color: var(--disabled-background, #f5f5f5);
+  color: var(--disabled-text, #8b949e);
+  cursor: not-allowed;
+}
+
+.ExportDialog__checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ExportDialog__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--checkbox-text, #24292f);
+  cursor: pointer;
+}
+
+.ExportDialog__checkbox input[type="checkbox"] {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.ExportDialog__help {
+  margin: 0;
+  font-size: 13px;
+  color: var(--help-text, #656d76);
+  line-height: 1.4;
+}
+
+/* Footer */
+.ExportDialog__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--dialog-border, #e1e4e8);
+  flex-shrink: 0;
+}
+
+.ExportDialog__button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid;
+  min-width: 100px;
+}
+
+.ExportDialog__button--secondary {
+  background-color: var(--secondary-button-background, #ffffff);
+  border-color: var(--secondary-button-border, #d0d7de);
+  color: var(--secondary-button-text, #24292f);
+}
+
+.ExportDialog__button--secondary:hover:not(:disabled) {
+  background-color: var(--secondary-button-hover-background, #f3f4f6);
+  border-color: var(--secondary-button-hover-border, #a8a8a8);
+}
+
+.ExportDialog__button--primary {
+  background-color: var(--primary-button-background, #007bff);
+  border-color: var(--primary-button-border, #007bff);
+  color: var(--primary-button-text, #ffffff);
+}
+
+.ExportDialog__button--primary:hover:not(:disabled) {
+  background-color: var(--primary-button-hover-background, #0056b3);
+  border-color: var(--primary-button-hover-border, #0056b3);
+}
+
+.ExportDialog__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--disabled-button-background, #f5f5f5);
+  color: var(--disabled-button-text, #8b949e);
+  border-color: var(--disabled-button-border, #d0d7de);
+}
+
+/* Export Button */
+.ExportButton {
+  padding: 8px 16px;
+  border: 1px solid var(--export-button-border, #d0d7de);
+  background-color: var(--export-button-background, #ffffff);
+  color: var(--export-button-text, #24292f);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ExportButton:hover {
+  background-color: var(--export-button-hover-background, #f3f4f6);
+  border-color: var(--export-button-hover-border, #a8a8a8);
+}
+
+.ExportButton:active {
+  background-color: var(--export-button-active-background, #e5e7ea);
+  transform: translateY(1px);
+}
+
+/* Quick Export Buttons */
+.QuickExportButtons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.QuickExportButtons__button {
+  padding: 6px 12px;
+  border: 1px solid var(--quick-button-border, #d0d7de);
+  background-color: var(--quick-button-background, #ffffff);
+  color: var(--quick-button-text, #24292f);
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.QuickExportButtons__button:hover {
+  background-color: var(--quick-button-hover-background, #f3f4f6);
+  border-color: var(--quick-button-hover-border, #a8a8a8);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.QuickExportButtons__button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Format-specific styling */
+.QuickExportButtons__button--csv {
+  border-color: var(--csv-border, #28a745);
+  color: var(--csv-text, #28a745);
+}
+
+.QuickExportButtons__button--csv:hover {
+  background-color: var(--csv-hover-background, #d4edda);
+  border-color: var(--csv-hover-border, #1e7e34);
+}
+
+.QuickExportButtons__button--excel {
+  border-color: var(--excel-border, #007bff);
+  color: var(--excel-text, #007bff);
+}
+
+.QuickExportButtons__button--excel:hover {
+  background-color: var(--excel-hover-background, #e3f2fd);
+  border-color: var(--excel-hover-border, #0056b3);
+}
+
+.QuickExportButtons__button--pdf {
+  border-color: var(--pdf-border, #dc3545);
+  color: var(--pdf-text, #dc3545);
+}
+
+.QuickExportButtons__button--pdf:hover {
+  background-color: var(--pdf-hover-background, #f8d7da);
+  border-color: var(--pdf-hover-border, #c82333);
+}
+
+/* Dark Mode Support */
+.Spreadsheet--dark-mode .ExportDialog__content {
+  background-color: var(--dialog-background, #2d3748);
+  color: var(--dialog-text, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .ExportDialog__header {
+  border-color: var(--dialog-border, #4a5568);
+}
+
+.Spreadsheet--dark-mode .ExportDialog__close {
+  color: var(--close-button, #a0aec0);
+}
+
+.Spreadsheet--dark-mode .ExportDialog__close:hover {
+  background-color: var(--close-hover-background, #4a5568);
+  color: var(--close-hover-color, #f7fafc);
+}
+
+.Spreadsheet--dark-mode .ExportDialog__format-option {
+  border-color: var(--option-border, #4a5568);
+  background-color: var(--option-background, #1a202c);
+}
+
+.Spreadsheet--dark-mode .ExportDialog__format-option:hover {
+  background-color: var(--option-hover-background, #4a5568);
+}
+
+.Spreadsheet--dark-mode .ExportDialog__input,
+.Spreadsheet--dark-mode .ExportDialog__select {
+  background-color: var(--input-background, #1a202c);
+  border-color: var(--input-border, #4a5568);
+  color: var(--input-text, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .ExportButton {
+  background-color: var(--export-button-background, #4a5568);
+  border-color: var(--export-button-border, #718096);
+  color: var(--export-button-text, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .ExportButton:hover {
+  background-color: var(--export-button-hover-background, #718096);
+}
+
+.Spreadsheet--dark-mode .QuickExportButtons__button {
+  background-color: var(--quick-button-background, #4a5568);
+  border-color: var(--quick-button-border, #718096);
+  color: var(--quick-button-text, #e2e8f0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .ExportDialog {
+    padding: 16px;
+  }
+
+  .ExportDialog__content {
+    max-width: none;
+    margin: 0;
+  }
+
+  .ExportDialog__header,
+  .ExportDialog__body,
+  .ExportDialog__footer {
+    padding: 16px;
+  }
+
+  .ExportDialog__format-options {
+    gap: 6px;
+  }
+
+  .ExportDialog__format-option {
+    padding: 10px;
+  }
+
+  .QuickExportButtons {
+    justify-content: center;
+  }
+
+  .QuickExportButtons__button {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .ExportDialog__footer {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+
+  .ExportDialog__button {
+    width: 100%;
+  }
+
+  .ExportDialog__format-option {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .QuickExportButtons {
+    flex-direction: column;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .ExportDialog__content {
+    border: 2px solid currentColor;
+  }
+
+  .ExportDialog__format-option,
+  .ExportDialog__input,
+  .ExportDialog__select,
+  .ExportButton,
+  .QuickExportButtons__button {
+    border-width: 2px;
+  }
+
+  .ExportDialog__button {
+    border-width: 2px;
+    font-weight: 600;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .ExportDialog__close,
+  .ExportDialog__format-option,
+  .ExportDialog__input,
+  .ExportDialog__select,
+  .ExportDialog__button,
+  .ExportButton,
+  .QuickExportButtons__button {
+    transition: none;
+  }
+
+  .ExportButton:active,
+  .QuickExportButtons__button:hover,
+  .QuickExportButtons__button:active {
+    transform: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .ExportDialog {
+    display: none;
+  }
+
+  .ExportButton,
+  .QuickExportButtons {
+    display: none;
+  }
+}
+
+/* Loading State */
+.ExportDialog--loading .ExportDialog__content {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.ExportDialog--loading .ExportDialog__body::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

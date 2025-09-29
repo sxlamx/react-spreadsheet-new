@@ -1,0 +1,570 @@
+/* DrillDown Manager Component Styles */
+
+/* Breadcrumbs Navigation */
+.DrillDownBreadcrumbs {
+  background-color: var(--breadcrumb-background, #f8f9fa);
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.DrillDownBreadcrumbs__list {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.DrillDownBreadcrumbs__item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.DrillDownBreadcrumbs__link {
+  background: none;
+  border: none;
+  color: var(--link-color, #007bff);
+  cursor: pointer;
+  text-decoration: none;
+  padding: 4px 6px;
+  border-radius: 3px;
+  transition: all 0.15s ease;
+  font-size: inherit;
+}
+
+.DrillDownBreadcrumbs__link:hover {
+  background-color: var(--link-hover-background, #e3f2fd);
+  color: var(--link-hover-color, #0056b3);
+  text-decoration: underline;
+}
+
+.DrillDownBreadcrumbs__link:focus {
+  outline: 2px solid var(--focus-color, #007bff);
+  outline-offset: 1px;
+}
+
+.DrillDownBreadcrumbs__current {
+  color: var(--current-text-color, #495057);
+  font-weight: 500;
+  padding: 4px 6px;
+}
+
+.DrillDownBreadcrumbs__item--current .DrillDownBreadcrumbs__current {
+  background-color: var(--current-background, #e9ecef);
+  border-radius: 3px;
+}
+
+.DrillDownBreadcrumbs__collapse {
+  background: none;
+  border: none;
+  color: var(--collapse-color, #dc3545);
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.15s ease;
+  margin-left: 2px;
+}
+
+.DrillDownBreadcrumbs__collapse:hover {
+  background-color: var(--collapse-hover-background, #f8d7da);
+  color: var(--collapse-hover-color, #721c24);
+}
+
+.DrillDownBreadcrumbs__separator {
+  color: var(--separator-color, #6c757d);
+  font-weight: bold;
+  margin: 0 2px;
+  user-select: none;
+}
+
+/* Drill-down Controls */
+.DrillDownControls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 16px;
+  background-color: var(--controls-background, #f1f3f4);
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+  flex-wrap: wrap;
+}
+
+.DrillDownControls__group {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.DrillDownControls__button {
+  padding: 6px 12px;
+  border: 1px solid var(--button-border, #d0d7de);
+  background-color: var(--button-background, #ffffff);
+  color: var(--button-text, #24292f);
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.DrillDownControls__button:hover:not(:disabled) {
+  background-color: var(--button-hover-background, #f3f4f6);
+  border-color: var(--button-hover-border, #a8a8a8);
+}
+
+.DrillDownControls__button:active:not(:disabled) {
+  background-color: var(--button-active-background, #e5e7ea);
+  transform: translateY(1px);
+}
+
+.DrillDownControls__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--button-disabled-background, #f5f5f5);
+  color: var(--button-disabled-text, #8b949e);
+}
+
+.DrillDownControls__button--reset {
+  border-color: var(--reset-border, #dc3545);
+  color: var(--reset-text, #dc3545);
+}
+
+.DrillDownControls__button--reset:hover:not(:disabled) {
+  background-color: var(--reset-hover-background, #f8d7da);
+  border-color: var(--reset-hover-border, #b02a37);
+}
+
+/* Drill-down Indicator */
+.DrillDownIndicator {
+  position: relative;
+  background: none;
+  border: 1px solid var(--indicator-border, #adb5bd);
+  border-radius: 3px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: bold;
+  color: var(--indicator-color, #495057);
+  transition: all 0.15s ease;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.DrillDownIndicator:hover {
+  background-color: var(--indicator-hover-background, #f8f9fa);
+  border-color: var(--indicator-hover-border, #6c757d);
+  transform: scale(1.1);
+}
+
+.DrillDownIndicator:active {
+  transform: scale(0.95);
+}
+
+.DrillDownIndicator--expanded {
+  background-color: var(--indicator-expanded-background, #d4edda);
+  border-color: var(--indicator-expanded-border, #28a745);
+  color: var(--indicator-expanded-color, #155724);
+}
+
+.DrillDownIndicator--expanded:hover {
+  background-color: var(--indicator-expanded-hover, #c3e6cb);
+  border-color: var(--indicator-expanded-hover-border, #1e7e34);
+}
+
+.DrillDownIndicator--collapsed {
+  background-color: var(--indicator-collapsed-background, #fff3cd);
+  border-color: var(--indicator-collapsed-border, #ffc107);
+  color: var(--indicator-collapsed-color, #856404);
+}
+
+.DrillDownIndicator--collapsed:hover {
+  background-color: var(--indicator-collapsed-hover, #ffeaa7);
+  border-color: var(--indicator-collapsed-hover-border, #e0a800);
+}
+
+.DrillDownIndicator__icon {
+  display: block;
+  line-height: 1;
+}
+
+.DrillDownIndicator__children-count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: var(--count-background, #007bff);
+  color: var(--count-text, #ffffff);
+  font-size: 9px;
+  font-weight: bold;
+  border-radius: 8px;
+  min-width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+  box-sizing: border-box;
+}
+
+/* Level-based styling */
+.DrillDownIndicator[style*="--level: 0"] {
+  border-width: 2px;
+}
+
+.DrillDownIndicator[style*="--level: 1"] {
+  opacity: 0.9;
+}
+
+.DrillDownIndicator[style*="--level: 2"] {
+  opacity: 0.8;
+}
+
+.DrillDownIndicator[style*="--level: 3"] {
+  opacity: 0.7;
+}
+
+.DrillDownIndicator[style*="--level: 4"] {
+  opacity: 0.6;
+}
+
+/* Animation for expand/collapse */
+@keyframes drillDownExpand {
+  from {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes drillDownCollapse {
+  from {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.DrillDownIndicator--expanding {
+  animation: drillDownExpand 0.3s ease-out;
+}
+
+.DrillDownIndicator--collapsing {
+  animation: drillDownCollapse 0.3s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .DrillDownBreadcrumbs {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .DrillDownBreadcrumbs__list {
+    gap: 2px;
+  }
+
+  .DrillDownBreadcrumbs__link,
+  .DrillDownBreadcrumbs__current {
+    padding: 3px 4px;
+  }
+
+  .DrillDownBreadcrumbs__collapse {
+    width: 18px;
+    height: 18px;
+    font-size: 14px;
+  }
+
+  .DrillDownControls {
+    padding: 6px 12px;
+    gap: 8px;
+  }
+
+  .DrillDownControls__button {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+
+  .DrillDownIndicator {
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .DrillDownBreadcrumbs__list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .DrillDownBreadcrumbs__item {
+    flex-wrap: wrap;
+  }
+
+  .DrillDownControls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .DrillDownControls__group {
+    justify-content: center;
+  }
+
+  .DrillDownControls__button {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+/* Dark Mode Support */
+.Spreadsheet--dark-mode .DrillDownBreadcrumbs {
+  background-color: var(--breadcrumb-background, #2d3748);
+  border-color: var(--border-color, #4a5568);
+  color: var(--text-color, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .DrillDownBreadcrumbs__link {
+  color: var(--link-color, #63b3ed);
+}
+
+.Spreadsheet--dark-mode .DrillDownBreadcrumbs__link:hover {
+  background-color: var(--link-hover-background, #2c5aa0);
+  color: var(--link-hover-color, #90cdf4);
+}
+
+.Spreadsheet--dark-mode .DrillDownBreadcrumbs__current {
+  color: var(--current-text-color, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .DrillDownBreadcrumbs__item--current .DrillDownBreadcrumbs__current {
+  background-color: var(--current-background, #4a5568);
+}
+
+.Spreadsheet--dark-mode .DrillDownBreadcrumbs__collapse {
+  color: var(--collapse-color, #fc8181);
+}
+
+.Spreadsheet--dark-mode .DrillDownBreadcrumbs__collapse:hover {
+  background-color: var(--collapse-hover-background, #742a2a);
+  color: var(--collapse-hover-color, #feb2b2);
+}
+
+.Spreadsheet--dark-mode .DrillDownControls {
+  background-color: var(--controls-background, #2d3748);
+  border-color: var(--border-color, #4a5568);
+}
+
+.Spreadsheet--dark-mode .DrillDownControls__button {
+  background-color: var(--button-background, #4a5568);
+  border-color: var(--button-border, #718096);
+  color: var(--button-text, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .DrillDownControls__button:hover:not(:disabled) {
+  background-color: var(--button-hover-background, #718096);
+  border-color: var(--button-hover-border, #a0aec0);
+}
+
+.Spreadsheet--dark-mode .DrillDownControls__button--reset {
+  border-color: var(--reset-border, #fc8181);
+  color: var(--reset-text, #fc8181);
+}
+
+.Spreadsheet--dark-mode .DrillDownControls__button--reset:hover:not(:disabled) {
+  background-color: var(--reset-hover-background, #742a2a);
+  border-color: var(--reset-hover-border, #e53e3e);
+}
+
+.Spreadsheet--dark-mode .DrillDownIndicator {
+  border-color: var(--indicator-border, #718096);
+  color: var(--indicator-color, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .DrillDownIndicator:hover {
+  background-color: var(--indicator-hover-background, #4a5568);
+  border-color: var(--indicator-hover-border, #a0aec0);
+}
+
+.Spreadsheet--dark-mode .DrillDownIndicator--expanded {
+  background-color: var(--indicator-expanded-background, #2f855a);
+  border-color: var(--indicator-expanded-border, #38a169);
+  color: var(--indicator-expanded-color, #c6f6d5);
+}
+
+.Spreadsheet--dark-mode .DrillDownIndicator--collapsed {
+  background-color: var(--indicator-collapsed-background, #d69e2e);
+  border-color: var(--indicator-collapsed-border, #ecc94b);
+  color: var(--indicator-collapsed-color, #faf089);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .DrillDownBreadcrumbs {
+    border-width: 2px;
+  }
+
+  .DrillDownBreadcrumbs__link {
+    border: 1px solid transparent;
+    font-weight: 600;
+  }
+
+  .DrillDownBreadcrumbs__link:focus {
+    border-color: currentColor;
+    outline-offset: 2px;
+  }
+
+  .DrillDownControls__button {
+    border-width: 2px;
+    font-weight: 600;
+  }
+
+  .DrillDownIndicator {
+    border-width: 2px;
+    font-weight: 900;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .DrillDownBreadcrumbs__link,
+  .DrillDownBreadcrumbs__collapse,
+  .DrillDownControls__button,
+  .DrillDownIndicator {
+    transition: none;
+  }
+
+  .DrillDownIndicator:hover {
+    transform: none;
+  }
+
+  .DrillDownIndicator:active {
+    transform: none;
+  }
+
+  .DrillDownControls__button:active:not(:disabled) {
+    transform: none;
+  }
+
+  @keyframes drillDownExpand,
+  @keyframes drillDownCollapse {
+    from, 50%, to {
+      transform: scale(1);
+    }
+  }
+}
+
+/* Print Styles */
+@media print {
+  .DrillDownBreadcrumbs,
+  .DrillDownControls {
+    display: none;
+  }
+
+  .DrillDownIndicator {
+    border: 1px solid black;
+    background: white;
+    color: black;
+  }
+
+  .DrillDownIndicator__children-count {
+    background: black;
+    color: white;
+  }
+}
+
+/* Focus Management */
+.DrillDownBreadcrumbs:focus-within .DrillDownBreadcrumbs__link {
+  position: relative;
+  z-index: 1;
+}
+
+.DrillDownControls:focus-within .DrillDownControls__button {
+  position: relative;
+  z-index: 1;
+}
+
+/* Loading State */
+.DrillDownIndicator--loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.DrillDownIndicator--loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Keyboard Navigation Helpers */
+.DrillDownBreadcrumbs__link:focus,
+.DrillDownControls__button:focus,
+.DrillDownIndicator:focus {
+  z-index: 10;
+  position: relative;
+}
+
+/* Tooltip Support */
+.DrillDownIndicator[title]:hover::before {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  white-space: nowrap;
+  z-index: 1000;
+  margin-bottom: 4px;
+}
+
+.DrillDownIndicator[title]:hover::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: #333;
+  z-index: 1000;
+}

@@ -1,0 +1,608 @@
+/* PivotTable Component Styles */
+
+.PivotTable {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color, #ffffff);
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: inherit;
+  position: relative;
+}
+
+.PivotTable--fill-container {
+  height: 100%;
+  width: 100%;
+}
+
+.PivotTable--configuring {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Field Selector Section */
+.PivotTable__field-selector {
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+  background-color: var(--field-selector-background, #f8f9fa);
+}
+
+/* Controls Section */
+.PivotTable__controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: var(--controls-background, #f1f3f4);
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+  min-height: 48px;
+}
+
+.PivotTable__export-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.PivotTable__export-button {
+  padding: 6px 12px;
+  border: 1px solid var(--button-border, #d0d7de);
+  background-color: var(--button-background, #ffffff);
+  color: var(--button-text, #24292f);
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.PivotTable__export-button:hover {
+  background-color: var(--button-hover-background, #f3f4f6);
+  border-color: var(--button-hover-border, #a8a8a8);
+}
+
+.PivotTable__export-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--button-disabled-background, #f5f5f5);
+}
+
+.PivotTable__info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--info-text, #656d76);
+}
+
+.PivotTable__dimensions {
+  font-weight: 500;
+  color: var(--dimensions-text, #24292f);
+}
+
+.PivotTable__computation-time {
+  font-style: italic;
+  color: var(--computation-time-text, #8b949e);
+}
+
+/* Main Content Area */
+.PivotTable__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0; /* Allow flex child to shrink */
+  position: relative;
+}
+
+/* Headers Container */
+.PivotTable__headers {
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+/* Spreadsheet Container */
+.PivotTable__spreadsheet {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+}
+
+.PivotTable__spreadsheet-component {
+  height: 100%;
+  width: 100%;
+}
+
+/* Cell Type Styles */
+.PivotTable__cell {
+  position: relative;
+}
+
+.PivotTable__cell--data {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.PivotTable__cell--rowHeader {
+  font-weight: 500;
+  background-color: var(--row-header-background, #f8f9fa);
+  border-right: 2px solid var(--header-border, #dee2e6);
+  text-align: left;
+}
+
+.PivotTable__cell--columnHeader {
+  font-weight: 500;
+  background-color: var(--column-header-background, #f8f9fa);
+  border-bottom: 2px solid var(--header-border, #dee2e6);
+  text-align: center;
+}
+
+.PivotTable__cell--subtotal {
+  background-color: var(--subtotal-background, #e9ecef);
+  font-weight: 600;
+  border-top: 1px solid var(--subtotal-border, #adb5bd);
+  border-bottom: 1px solid var(--subtotal-border, #adb5bd);
+}
+
+.PivotTable__cell--grandTotal {
+  background-color: var(--grand-total-background, #dee2e6);
+  font-weight: 700;
+  border: 2px solid var(--grand-total-border, #6c757d);
+}
+
+.PivotTable__cell--empty {
+  background-color: var(--empty-background, #ffffff);
+}
+
+/* Expandable cell indicators */
+.PivotTable__cell--expandable {
+  cursor: pointer;
+  position: relative;
+}
+
+.PivotTable__cell--expandable::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 0;
+  height: 0;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-top: 3px solid var(--expandable-indicator, #666);
+  opacity: 0.6;
+}
+
+.PivotTable__cell--expanded::after {
+  border-top: none;
+  border-bottom: 3px solid var(--expandable-indicator, #666);
+}
+
+.PivotTable__cell--expandable:hover {
+  background-color: var(--expandable-hover, #f0f0f0);
+}
+
+/* Level-based indentation */
+.PivotTable__cell--level-0 {
+  padding-left: 8px;
+}
+
+.PivotTable__cell--level-1 {
+  padding-left: 20px;
+}
+
+.PivotTable__cell--level-2 {
+  padding-left: 32px;
+}
+
+.PivotTable__cell--level-3 {
+  padding-left: 44px;
+}
+
+.PivotTable__cell--level-4 {
+  padding-left: 56px;
+}
+
+/* Loading State */
+.PivotTable--loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  background-color: var(--loading-background, #f8f9fa);
+}
+
+.PivotTable__loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.PivotTable__spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--spinner-track, #e9ecef);
+  border-top: 3px solid var(--spinner-color, #007bff);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.PivotTable__loading-text {
+  font-size: 14px;
+  color: var(--loading-text, #6c757d);
+  font-weight: 500;
+}
+
+/* Error State */
+.PivotTable--error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  background-color: var(--error-background, #f8f9fa);
+}
+
+.PivotTable__error-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  max-width: 400px;
+  padding: 24px;
+}
+
+.PivotTable__error-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--error-title, #dc3545);
+}
+
+.PivotTable__error-message {
+  margin: 0;
+  font-size: 14px;
+  color: var(--error-message, #6c757d);
+  line-height: 1.5;
+}
+
+.PivotTable__retry-button {
+  padding: 8px 16px;
+  border: 1px solid var(--retry-button-border, #dc3545);
+  background-color: var(--retry-button-background, #dc3545);
+  color: var(--retry-button-text, #ffffff);
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.PivotTable__retry-button:hover {
+  background-color: var(--retry-button-hover, #c82333);
+  border-color: var(--retry-button-hover, #c82333);
+}
+
+/* Empty State */
+.PivotTable--empty {
+  min-height: 300px;
+}
+
+.PivotTable__empty-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  padding: 48px 24px;
+  flex: 1;
+}
+
+.PivotTable__empty-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--empty-title, #24292f);
+}
+
+.PivotTable__empty-message {
+  margin: 0;
+  font-size: 14px;
+  color: var(--empty-message, #656d76);
+  line-height: 1.5;
+  max-width: 400px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .PivotTable__controls {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+    padding: 12px;
+  }
+
+  .PivotTable__export-controls {
+    justify-content: center;
+  }
+
+  .PivotTable__info {
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  .PivotTable__export-button {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .PivotTable__export-controls {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .PivotTable__export-button {
+    width: 100%;
+  }
+
+  .PivotTable__cell--level-1 {
+    padding-left: 16px;
+  }
+
+  .PivotTable__cell--level-2 {
+    padding-left: 24px;
+  }
+
+  .PivotTable__cell--level-3 {
+    padding-left: 32px;
+  }
+
+  .PivotTable__cell--level-4 {
+    padding-left: 40px;
+  }
+}
+
+/* Dark Mode Support */
+.Spreadsheet--dark-mode .PivotTable {
+  background-color: var(--background-color, #1a202c);
+  border-color: var(--border-color, #4a5568);
+  color: var(--text-color, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .PivotTable__field-selector {
+  background-color: var(--field-selector-background, #2d3748);
+  border-color: var(--border-color, #4a5568);
+}
+
+.Spreadsheet--dark-mode .PivotTable__controls {
+  background-color: var(--controls-background, #2d3748);
+  border-color: var(--border-color, #4a5568);
+}
+
+.Spreadsheet--dark-mode .PivotTable__export-button {
+  background-color: var(--button-background, #4a5568);
+  border-color: var(--button-border, #718096);
+  color: var(--button-text, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .PivotTable__export-button:hover {
+  background-color: var(--button-hover-background, #718096);
+}
+
+.Spreadsheet--dark-mode .PivotTable__cell--rowHeader,
+.Spreadsheet--dark-mode .PivotTable__cell--columnHeader {
+  background-color: var(--header-background, #2d3748);
+  color: var(--header-text, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .PivotTable__cell--subtotal {
+  background-color: var(--subtotal-background, #4a5568);
+  color: var(--subtotal-text, #f7fafc);
+}
+
+.Spreadsheet--dark-mode .PivotTable__cell--grandTotal {
+  background-color: var(--grand-total-background, #2d3748);
+  color: var(--grand-total-text, #f7fafc);
+}
+
+.Spreadsheet--dark-mode .PivotTable--loading {
+  background-color: var(--loading-background, #2d3748);
+}
+
+.Spreadsheet--dark-mode .PivotTable__spinner {
+  border-color: var(--spinner-track, #4a5568);
+  border-top-color: var(--spinner-color, #63b3ed);
+}
+
+.Spreadsheet--dark-mode .PivotTable__loading-text {
+  color: var(--loading-text, #a0aec0);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .PivotTable {
+    border-width: 2px;
+  }
+
+  .PivotTable__cell--rowHeader,
+  .PivotTable__cell--columnHeader {
+    border-width: 2px;
+    font-weight: 700;
+  }
+
+  .PivotTable__cell--subtotal,
+  .PivotTable__cell--grandTotal {
+    border-width: 3px;
+  }
+
+  .PivotTable__export-button {
+    border-width: 2px;
+    font-weight: 600;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .PivotTable__spinner {
+    animation: none;
+  }
+
+  .PivotTable__export-button,
+  .PivotTable__cell--expandable {
+    transition: none;
+  }
+
+  .PivotTable__retry-button {
+    transition: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .PivotTable__field-selector,
+  .PivotTable__controls {
+    display: none;
+  }
+
+  .PivotTable {
+    border: none;
+    background: white;
+    color: black;
+  }
+
+  .PivotTable__cell--expandable::after {
+    display: none;
+  }
+
+  .PivotTable__content {
+    display: block;
+  }
+
+  .PivotTable__spreadsheet {
+    overflow: visible;
+  }
+}
+
+/* Focus Management */
+.PivotTable:focus-within .PivotTable__cell--expandable {
+  outline: 2px solid var(--focus-color, #007bff);
+  outline-offset: -2px;
+}
+
+/* Scroll Synchronization Helpers */
+.PivotTable__content--synchronized {
+  overflow: hidden;
+}
+
+.PivotTable__spreadsheet--synchronized {
+  overflow: auto;
+}
+
+/* Performance Optimization Classes */
+.PivotTable--optimized .PivotTable__cell {
+  contain: layout style;
+}
+
+.PivotTable--virtual .PivotTable__spreadsheet {
+  contain: strict;
+  will-change: transform;
+}
+
+/* Configuration Management Styles */
+.PivotTable__configuration-toolbar {
+  margin-bottom: 16px;
+}
+
+.PivotTable__configuration-browser-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.PivotTable__configuration-browser-container {
+  background-color: var(--background-color, #ffffff);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.PivotTable__configuration-browser-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color, #e1e4e8);
+  flex-shrink: 0;
+}
+
+.PivotTable__configuration-browser-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-color, #24292f);
+}
+
+.PivotTable__configuration-browser-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--close-button, #6c757d);
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.PivotTable__configuration-browser-close:hover {
+  background-color: var(--close-hover-background, #f8f9fa);
+  color: var(--close-hover-color, #495057);
+}
+
+.PivotTable__configuration-browser {
+  flex: 1;
+  min-height: 0;
+  border: none;
+  border-radius: 0;
+}
+
+/* Dark mode support for configuration management */
+.Spreadsheet--dark-mode .PivotTable__configuration-browser-container {
+  background-color: var(--background-color, #2d3748);
+  color: var(--text-color, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .PivotTable__configuration-browser-header {
+  border-color: var(--border-color, #4a5568);
+}
+
+.Spreadsheet--dark-mode .PivotTable__configuration-browser-close {
+  color: var(--close-button, #a0aec0);
+}
+
+.Spreadsheet--dark-mode .PivotTable__configuration-browser-close:hover {
+  background-color: var(--close-hover-background, #4a5568);
+  color: var(--close-hover-color, #f7fafc);
+}
