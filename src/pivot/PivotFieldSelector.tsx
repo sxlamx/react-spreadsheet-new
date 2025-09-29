@@ -189,7 +189,7 @@ interface DropZoneProps {
   onDrop: (field: PivotField, targetType: DropZoneType) => void;
   onRemoveField: (index: number) => void;
   onEditAggregation?: (index: number, aggregation: PivotValueField['aggregation']) => void;
-  onEditFilter?: (index: number, operator: string, value: any) => void;
+  onEditFilter?: (index: number, operator: 'equals' | 'notEquals' | 'contains' | 'notContains' | 'greaterThan' | 'lessThan' | 'greaterThanOrEqual' | 'lessThanOrEqual' | 'in' | 'notIn' | 'between' | 'isEmpty' | 'isNotEmpty', value: any) => void;
   readOnly?: boolean;
   showAggregation?: boolean;
   showFilter?: boolean;
@@ -295,7 +295,7 @@ const DropZone: React.FC<DropZoneProps> = ({
                 }
                 onEditFilter={
                   onEditFilter
-                    ? (op, val) => onEditFilter(index, op, val)
+                    ? (op, val) => onEditFilter(index, op as 'equals' | 'notEquals' | 'contains' | 'notContains' | 'greaterThan' | 'lessThan' | 'greaterThanOrEqual' | 'lessThanOrEqual' | 'in' | 'notIn' | 'between' | 'isEmpty' | 'isNotEmpty', val)
                     : undefined
                 }
                 showAggregation={showAggregation}
@@ -434,7 +434,7 @@ export const PivotFieldSelector: React.FC<PivotFieldSelectorProps> = ({
   );
 
   const handleEditFilter = React.useCallback(
-    (index: number, operator: string, value: any) => {
+    (index: number, operator: 'equals' | 'notEquals' | 'contains' | 'notContains' | 'greaterThan' | 'lessThan' | 'greaterThanOrEqual' | 'lessThanOrEqual' | 'in' | 'notIn' | 'between' | 'isEmpty' | 'isNotEmpty', value: any) => {
       if (readOnly) return;
       const newFilters = [...configuration.filters];
       newFilters[index] = { ...newFilters[index], operator, value };

@@ -156,8 +156,6 @@ describe('ExportUI Components', () => {
         <ExportButton
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          format="csv"
-          filename="test"
         />
       );
 
@@ -170,8 +168,6 @@ describe('ExportUI Components', () => {
         <ExportButton
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          format="excel"
-          filename="test-excel"
         />
       );
 
@@ -199,7 +195,6 @@ describe('ExportUI Components', () => {
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
           format="pdf"
-          filename="test-pdf"
         />
       );
 
@@ -221,7 +216,6 @@ describe('ExportUI Components', () => {
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
           format="json"
-          filename="custom"
           label="Download JSON"
           icon="📊"
         />
@@ -236,8 +230,6 @@ describe('ExportUI Components', () => {
         <ExportButton
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          format="csv"
-          filename="styled"
           className="custom-button"
           style={{ backgroundColor: 'red' }}
         />
@@ -253,8 +245,6 @@ describe('ExportUI Components', () => {
         <ExportButton
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          format="csv"
-          filename="disabled-test"
           disabled={true}
         />
       );
@@ -273,7 +263,6 @@ describe('ExportUI Components', () => {
         <QuickExportButtons
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          filename="quick-test"
         />
       );
 
@@ -288,7 +277,6 @@ describe('ExportUI Components', () => {
         <QuickExportButtons
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          filename="quick-test"
         />
       );
 
@@ -318,7 +306,6 @@ describe('ExportUI Components', () => {
         <QuickExportButtons
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          filename="compact-test"
           compact={true}
         />
       );
@@ -332,7 +319,6 @@ describe('ExportUI Components', () => {
         <QuickExportButtons
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          filename="limited-test"
           formats={['csv', 'pdf']}
         />
       );
@@ -358,7 +344,6 @@ describe('ExportUI Components', () => {
           onClose={mockOnClose}
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          defaultFilename="dialog-test"
         />
       );
 
@@ -373,7 +358,6 @@ describe('ExportUI Components', () => {
           onClose={mockOnClose}
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          defaultFilename="dialog-test"
         />
       );
 
@@ -387,7 +371,6 @@ describe('ExportUI Components', () => {
           onClose={mockOnClose}
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          defaultFilename="format-test"
         />
       );
 
@@ -405,7 +388,6 @@ describe('ExportUI Components', () => {
           onClose={mockOnClose}
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          defaultFilename="custom-name"
         />
       );
 
@@ -423,7 +405,6 @@ describe('ExportUI Components', () => {
           onClose={mockOnClose}
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          defaultFilename="options-test"
         />
       );
 
@@ -467,7 +448,6 @@ describe('ExportUI Components', () => {
           onClose={mockOnClose}
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          defaultFilename="progress-test"
         />
       );
 
@@ -503,7 +483,6 @@ describe('ExportUI Components', () => {
           onClose={mockOnClose}
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          defaultFilename="cancel-test"
         />
       );
 
@@ -530,7 +509,6 @@ describe('ExportUI Components', () => {
           onClose={mockOnClose}
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          defaultFilename=""
         />
       );
 
@@ -553,7 +531,6 @@ describe('ExportUI Components', () => {
           onClose={mockOnClose}
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          defaultFilename="success-test"
         />
       );
 
@@ -574,7 +551,6 @@ describe('ExportUI Components', () => {
           onClose={mockOnClose}
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          defaultFilename="error-test"
         />
       );
 
@@ -595,7 +571,6 @@ describe('ExportUI Components', () => {
           onClose={mockOnClose}
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          defaultFilename="keyboard-test"
         />
       );
 
@@ -613,7 +588,6 @@ describe('ExportUI Components', () => {
           onClose={mockOnClose}
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          defaultFilename="focus-test"
         />
       );
 
@@ -632,7 +606,6 @@ describe('ExportUI Components', () => {
           onClose={mockOnClose}
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          defaultFilename="advanced-test"
           showAdvanced={true}
         />
       );
@@ -666,7 +639,6 @@ describe('ExportUI Components', () => {
         <QuickExportButtons
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          filename="accessibility-test"
         />
       );
 
@@ -684,7 +656,6 @@ describe('ExportUI Components', () => {
           onClose={jest.fn()}
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          defaultFilename="aria-test"
         />
       );
 
@@ -700,7 +671,6 @@ describe('ExportUI Components', () => {
           onClose={jest.fn()}
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          defaultFilename="labels-test"
         />
       );
 
@@ -724,7 +694,6 @@ describe('ExportUI Components', () => {
           onClose={jest.fn()}
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          defaultFilename="screen-reader-test"
         />
       );
 
@@ -751,7 +720,6 @@ describe('ExportUI Components', () => {
         <QuickExportButtons
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          filename="mobile-test"
         />
       );
 
@@ -766,7 +734,6 @@ describe('ExportUI Components', () => {
           onClose={jest.fn()}
           pivotData={samplePivotData}
           configuration={sampleConfiguration}
-          defaultFilename="responsive-test"
         />
       );
 

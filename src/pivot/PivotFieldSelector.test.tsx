@@ -14,39 +14,50 @@ describe('PivotFieldSelector Integration Tests', () => {
   let defaultConfiguration: PivotConfiguration;
   let mockOnChange: jest.Mock;
 
+  // Mock HTML5 drag and drop events
+  const createDragEvent = (type: string, dataTransfer: any = {}) => {
+    const event = new Event(type, { bubbles: true });
+    Object.defineProperty(event, 'dataTransfer', {
+      value: {
+        setData: jest.fn(),
+        getData: jest.fn(),
+        dropEffect: 'move',
+        effectAllowed: 'move',
+        ...dataTransfer
+      },
+      writable: true
+    });
+    return event;
+  };
+
   beforeEach(() => {
     availableFields = [
-      { name: 'region', dataType: 'string' },
-      { name: 'product', dataType: 'string' },
-      { name: 'category', dataType: 'string' },
-      { name: 'quarter', dataType: 'string' },
-      { name: 'sales', dataType: 'number' },
-      { name: 'quantity', dataType: 'number' },
-      { name: 'cost', dataType: 'number' },
-      { name: 'date', dataType: 'date' },
-      { name: 'active', dataType: 'boolean' },
+      { id: '1', name: 'region', dataType: 'string' },
+      { id: '2', name: 'product', dataType: 'string' },
+      { id: '3', name: 'category', dataType: 'string' },
+      { id: '4', name: 'quarter', dataType: 'string' },
+      { id: '5', name: 'sales', dataType: 'number' },
+      { id: '6', name: 'quantity', dataType: 'number' },
+      { id: '7', name: 'cost', dataType: 'number' },
+      { id: '8', name: 'date', dataType: 'date' },
+      { id: '9', name: 'active', dataType: 'boolean' },
     ];
 
     defaultConfiguration = {
       rows: [
-        { name: 'region', dataType: 'string' },
-        { name: 'product', dataType: 'string' }
+        { id: '1', name: 'region', dataType: 'string' },
+        { id: '2', name: 'product', dataType: 'string' }
       ],
       columns: [
-        { name: 'quarter', dataType: 'string' }
+        { id: '4', name: 'quarter', dataType: 'string' }
       ],
       values: [
-        { name: 'sales', dataType: 'number', aggregation: 'sum' },
-        { name: 'quantity', dataType: 'number', aggregation: 'sum' }
+        { field: { id: '5', name: 'sales', dataType: 'number' }, aggregation: 'sum' },
+        { field: { id: '6', name: 'quantity', dataType: 'number' }, aggregation: 'sum' }
       ],
       filters: [
-        { name: 'sales', operator: 'greaterThan', value: 1000 }
-      ],
-      options: {
-        showGrandTotals: true,
-        showSubtotals: true,
-        computeMode: 'client'
-      }
+        { field: { id: '5', name: 'sales', dataType: 'number' }, operator: 'greaterThan', value: 1000 }
+      ]
     };
 
     mockOnChange = jest.fn();
@@ -130,20 +141,6 @@ describe('PivotFieldSelector Integration Tests', () => {
   });
 
   describe('Drag and Drop Functionality', () => {
-    // Mock HTML5 drag and drop events
-    const createDragEvent = (type: string, dataTransfer: any = {}) => {
-      const event = new Event(type, { bubbles: true });
-      Object.defineProperty(event, 'dataTransfer', {
-        value: {
-          setData: jest.fn(),
-          getData: jest.fn(),
-          dropEffect: 'move',
-          effectAllowed: 'move',
-          ...dataTransfer
-        }
-      });
-      return event;
-    };
 
     test('allows dragging field from available to rows', async () => {
       renderFieldSelector();
@@ -513,6 +510,7 @@ describe('PivotFieldSelector Integration Tests', () => {
   describe('Performance', () => {
     test('handles large number of available fields efficiently', () => {
       const manyFields: PivotField[] = Array.from({ length: 1000 }, (_, i) => ({
+        id: `field_${i}`,
         name: `field_${i}`,
         dataType: i % 2 === 0 ? 'string' : 'number'
       }));
@@ -527,6 +525,7 @@ describe('PivotFieldSelector Integration Tests', () => {
 
     test('virtualizes field list when many fields present', () => {
       const manyFields: PivotField[] = Array.from({ length: 1000 }, (_, i) => ({
+        id: `field_${i}`,
         name: `field_${i}`,
         dataType: 'string'
       }));

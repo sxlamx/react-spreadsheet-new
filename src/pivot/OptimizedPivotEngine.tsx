@@ -46,6 +46,50 @@ export class OptimizedPivotEngine extends PivotEngine {
     this.performanceManager = performanceManager || PerformanceManager.getInstance();
   }
 
+  /** Overloaded computePivot method for backwards compatibility with tests */
+  computePivot(dataOrExpandedPaths?: PivotDataSet | string[][], config?: PivotConfiguration): PivotStructure {
+    if (Array.isArray(dataOrExpandedPaths) && typeof dataOrExpandedPaths[0] === 'string') {
+      // Called with expandedPaths as first parameter
+      return super.computePivot(dataOrExpandedPaths as string[][]);
+    } else if (dataOrExpandedPaths && config) {
+      // Called with data and config parameters (test API)
+      this.updateData(dataOrExpandedPaths as PivotDataSet);
+      this.updateConfiguration(config);
+      return this.computeOptimized();
+    } else {
+      // Called with no parameters
+      return this.computeOptimized();
+    }
+  }
+
+  /** Drill down into specific cell data */
+  drillDown(data: PivotDataSet, config: PivotConfiguration, rowPath: string[], columnPath: string[]): PivotDataSet {
+    // Update engine with new data/config if needed
+    this.updateData(data);
+    this.updateConfiguration(config);
+
+    // Filter data based on the paths
+    let filteredData = [...data];
+
+    // Apply row path filters
+    rowPath.forEach((value, index) => {
+      if (index < config.rows.length) {
+        const field = config.rows[index];
+        filteredData = filteredData.filter(row => String(row[field.id]) === value);
+      }
+    });
+
+    // Apply column path filters
+    columnPath.forEach((value, index) => {
+      if (index < config.columns.length) {
+        const field = config.columns[index];
+        filteredData = filteredData.filter(row => String(row[field.id]) === value);
+      }
+    });
+
+    return filteredData;
+  }
+
   /** Optimized pivot computation with caching and performance monitoring */
   computeOptimized(options: OptimizedComputationOptions = {}): PivotStructure {
     const {
@@ -57,7 +101,7 @@ export class OptimizedPivotEngine extends PivotEngine {
     } = options;
 
     // Generate cache key
-    const cacheKey = this.performanceManager.generateCacheKey(this.data, this.configuration);
+    const cacheKey = this.performanceManager.generateCacheKey(this.data, this.config);
 
     // Try to get from cache first
     const cached = this.performanceManager.getCachedStructure(cacheKey);

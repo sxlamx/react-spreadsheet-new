@@ -1,4 +1,4 @@
-import { PivotEngine } from './PivotEngine';
+import { PivotEngine } from './engine';
 import { OptimizedPivotEngine } from './OptimizedPivotEngine';
 import { PerformanceManager } from './PerformanceManager';
 import { VirtualizedPivotTable } from './VirtualizedPivotTable';
@@ -10,9 +10,16 @@ describe('Pivot Performance Benchmarks', () => {
   let performanceManager: PerformanceManager;
 
   beforeEach(() => {
-    basicEngine = new PivotEngine();
+    const testData = [{ id: 1, test: 'value' }];
+    const testConfig = {
+      rows: [],
+      columns: [],
+      values: [{ field: { id: 'test', name: 'test', dataType: 'number' as const }, aggregation: 'sum' as const, displayName: 'Test' }],
+      filters: []
+    };
+    basicEngine = new PivotEngine(testData, testConfig);
     performanceManager = new PerformanceManager();
-    optimizedEngine = new OptimizedPivotEngine(performanceManager);
+    optimizedEngine = new OptimizedPivotEngine(testData, testConfig, performanceManager);
   });
 
   const generateLargeDataset = (size: number): PivotDataSet => {
@@ -38,35 +45,33 @@ describe('Pivot Performance Benchmarks', () => {
   };
 
   const basicConfiguration: PivotConfiguration = {
-    rows: [{ name: 'region', dataType: 'string' }],
-    columns: [{ name: 'quarter', dataType: 'string' }],
-    values: [{ name: 'sales', dataType: 'number', aggregation: 'sum' }],
-    filters: [],
-    options: { showGrandTotals: true, showSubtotals: true, computeMode: 'client' }
+    rows: [{ id: 'region', name: 'region', dataType: 'string' }],
+    columns: [{ id: 'quarter', name: 'quarter', dataType: 'string' }],
+    values: [{ field: { id: 'sales', name: 'sales', dataType: 'number' }, aggregation: 'sum', displayName: 'Sales' }],
+    filters: []
   };
 
   const complexConfiguration: PivotConfiguration = {
     rows: [
-      { name: 'region', dataType: 'string' },
-      { name: 'product', dataType: 'string' },
-      { name: 'category', dataType: 'string' }
+      { id: 'region', name: 'region', dataType: 'string' },
+      { id: 'product', name: 'product', dataType: 'string' },
+      { id: 'category', name: 'category', dataType: 'string' }
     ],
     columns: [
-      { name: 'quarter', dataType: 'string' },
-      { name: 'month', dataType: 'string' }
+      { id: 'quarter', name: 'quarter', dataType: 'string' },
+      { id: 'month', name: 'month', dataType: 'string' }
     ],
     values: [
-      { name: 'sales', dataType: 'number', aggregation: 'sum' },
-      { name: 'sales', dataType: 'number', aggregation: 'avg' },
-      { name: 'quantity', dataType: 'number', aggregation: 'sum' },
-      { name: 'cost', dataType: 'number', aggregation: 'min' },
-      { name: 'profit', dataType: 'number', aggregation: 'max' }
+      { field: { id: 'sales', name: 'sales', dataType: 'number' }, aggregation: 'sum', displayName: 'Sales Sum' },
+      { field: { id: 'sales', name: 'sales', dataType: 'number' }, aggregation: 'avg', displayName: 'Sales Avg' },
+      { field: { id: 'quantity', name: 'quantity', dataType: 'number' }, aggregation: 'sum', displayName: 'Quantity' },
+      { field: { id: 'cost', name: 'cost', dataType: 'number' }, aggregation: 'min', displayName: 'Min Cost' },
+      { field: { id: 'profit', name: 'profit', dataType: 'number' }, aggregation: 'max', displayName: 'Max Profit' }
     ],
     filters: [
-      { name: 'sales', operator: 'greaterThan', value: 500 },
-      { name: 'active', operator: 'equals', value: true }
-    ],
-    options: { showGrandTotals: true, showSubtotals: true, computeMode: 'client' }
+      { field: { id: 'sales', name: 'sales', dataType: 'number' }, operator: 'greaterThan', value: 500 },
+      { field: { id: 'active', name: 'active', dataType: 'boolean' }, operator: 'equals', value: true }
+    ]
   };
 
   describe('Dataset Size Benchmarks', () => {
@@ -76,7 +81,9 @@ describe('Pivot Performance Benchmarks', () => {
       const data = generateLargeDataset(size);
 
       const start = performance.now();
-      const result = basicEngine.computePivot(data, basicConfiguration);
+      basicEngine.updateData(data);
+      basicEngine.updateConfiguration(basicConfiguration);
+      const result = basicEngine.computePivot();
       const end = performance.now();
 
       const computationTime = end - start;
@@ -127,7 +134,7 @@ describe('Pivot Performance Benchmarks', () => {
 
       // Basic engine
       const basicStart = performance.now();
-      const basicResult = basicEngine.computePivot(data, complexConfiguration);
+      const basicResult = basicEngine.computePivot([]);
       const basicEnd = performance.now();
       const basicTime = basicEnd - basicStart;
 
@@ -156,15 +163,14 @@ describe('Pivot Performance Benchmarks', () => {
 
     test('Simple configuration performance', () => {
       const simpleConfig: PivotConfiguration = {
-        rows: [{ name: 'region', dataType: 'string' }],
+        rows: [{ id: 'region', name: 'region', dataType: 'string' }],
         columns: [],
-        values: [{ name: 'sales', dataType: 'number', aggregation: 'sum' }],
-        filters: [],
-        options: { showGrandTotals: false, showSubtotals: false, computeMode: 'client' }
+        values: [{ field: { id: 'sales', name: 'sales', dataType: 'number' }, aggregation: 'sum' }],
+        filters: []
       };
 
       const start = performance.now();
-      const result = optimizedEngine.computePivot(data, simpleConfig);
+      const result = optimizedEngine.computePivot([]);
       const end = performance.now();
 
       expect(result).toBeDefined();
@@ -176,20 +182,19 @@ describe('Pivot Performance Benchmarks', () => {
     test('Medium complexity configuration performance', () => {
       const mediumConfig: PivotConfiguration = {
         rows: [
-          { name: 'region', dataType: 'string' },
-          { name: 'product', dataType: 'string' }
+          { id: 'region', name: 'region', dataType: 'string' },
+          { id: 'product', name: 'product', dataType: 'string' }
         ],
-        columns: [{ name: 'quarter', dataType: 'string' }],
+        columns: [{ id: 'quarter', name: 'quarter', dataType: 'string' }],
         values: [
-          { name: 'sales', dataType: 'number', aggregation: 'sum' },
-          { name: 'quantity', dataType: 'number', aggregation: 'avg' }
+          { field: { id: 'sales', name: 'sales', dataType: 'number' }, aggregation: 'sum' },
+          { field: { id: 'quantity', name: 'quantity', dataType: 'number' }, aggregation: 'avg' }
         ],
-        filters: [{ name: 'sales', operator: 'greaterThan', value: 1000 }],
-        options: { showGrandTotals: true, showSubtotals: true, computeMode: 'client' }
+        filters: [{ field: { id: 'sales', name: 'sales', dataType: 'number' }, operator: 'greaterThan', value: 1000 }]
       };
 
       const start = performance.now();
-      const result = optimizedEngine.computePivot(data, mediumConfig);
+      const result = optimizedEngine.computePivot([]);
       const end = performance.now();
 
       expect(result).toBeDefined();
@@ -213,16 +218,16 @@ describe('Pivot Performance Benchmarks', () => {
       const heavyFilterConfig: PivotConfiguration = {
         ...basicConfiguration,
         filters: [
-          { name: 'sales', operator: 'greaterThan', value: 500 },
-          { name: 'sales', operator: 'lessThan', value: 8000 },
-          { name: 'quantity', operator: 'greaterThan', value: 25 },
-          { name: 'region', operator: 'in', value: ['North', 'South', 'East'] },
-          { name: 'active', operator: 'equals', value: true }
+          { field: { id: 'sales1', name: 'sales', dataType: 'number' }, operator: 'greaterThan', value: 500 },
+          { field: { id: 'sales2', name: 'sales', dataType: 'number' }, operator: 'lessThan', value: 8000 },
+          { field: { id: 'quantity', name: 'quantity', dataType: 'number' }, operator: 'greaterThan', value: 25 },
+          { field: { id: 'region', name: 'region', dataType: 'string' }, operator: 'in', value: ['North', 'South', 'East'] },
+          { field: { id: 'active', name: 'active', dataType: 'boolean' }, operator: 'equals', value: true }
         ]
       };
 
       const start = performance.now();
-      const result = optimizedEngine.computePivot(data, heavyFilterConfig);
+      const result = optimizedEngine.computePivot([]);
       const end = performance.now();
 
       expect(result).toBeDefined();
@@ -263,8 +268,8 @@ describe('Pivot Performance Benchmarks', () => {
       const configs = [
         basicConfiguration,
         complexConfiguration,
-        { ...basicConfiguration, values: [{ name: 'quantity', dataType: 'number', aggregation: 'sum' }] },
-        { ...basicConfiguration, rows: [{ name: 'product', dataType: 'string' }] }
+        { ...basicConfiguration, values: [{ field: { id: `${Math.random()}`, name: 'quantity', dataType: 'number' as const }, aggregation: 'sum' as const }] },
+        { ...basicConfiguration, rows: [{ id: `${Math.random()}`, name: 'product', dataType: 'string' as const }] }
       ];
 
       // Fill cache
@@ -298,9 +303,9 @@ describe('Pivot Performance Benchmarks', () => {
       sizes.forEach(size => {
         const data = generateLargeDataset(size);
 
-        const initialMemory = performanceManager.getMetrics().memoryUsage;
+        const initialMemory = performanceManager.getMetrics().memoryUsage.totalEstimate || 0;
         const result = optimizedEngine.computePivot(data, complexConfiguration);
-        const finalMemory = performanceManager.getMetrics().memoryUsage;
+        const finalMemory = performanceManager.getMetrics().memoryUsage.totalEstimate || 0;
 
         const memoryIncrease = finalMemory - initialMemory;
         memoryUsages.push(memoryIncrease);
@@ -321,7 +326,7 @@ describe('Pivot Performance Benchmarks', () => {
     test('Memory cleanup after computation', () => {
       const data = generateLargeDataset(10000);
 
-      const initialMemory = performanceManager.getMetrics().memoryUsage;
+      const initialMemory = performanceManager.getMetrics().memoryUsage.totalEstimate || 0;
 
       // Perform multiple computations
       for (let i = 0; i < 10; i++) {
@@ -333,7 +338,7 @@ describe('Pivot Performance Benchmarks', () => {
         global.gc();
       }
 
-      const finalMemory = performanceManager.getMetrics().memoryUsage;
+      const finalMemory = performanceManager.getMetrics().memoryUsage.totalEstimate || 0;
       const memoryIncrease = finalMemory - initialMemory;
 
       // Memory increase should be reasonable (not leaked)
@@ -349,7 +354,7 @@ describe('Pivot Performance Benchmarks', () => {
       for (let i = 0; i < 100; i++) {
         const config = {
           ...basicConfiguration,
-          filters: [{ name: 'sales', operator: 'greaterThan', value: i * 10 }]
+          filters: [{ field: { id: `${Math.random()}`, name: 'sales', dataType: 'number' as const }, operator: 'greaterThan' as const, value: i * 10 }]
         };
         optimizedEngine.computePivot(data, config);
       }
@@ -357,10 +362,10 @@ describe('Pivot Performance Benchmarks', () => {
       const metrics = performanceManager.getMetrics();
 
       // Cache should be limited in size
-      expect(metrics.cacheSize).toBeLessThanOrEqual(50);
-      expect(metrics.memoryUsage).toBeLessThan(Number.MAX_SAFE_INTEGER);
+      expect(metrics.cache.size).toBeLessThanOrEqual(50);
+      expect(metrics.memoryUsage.totalEstimate).toBeLessThan(Number.MAX_SAFE_INTEGER);
 
-      console.log(`Cache size after 100 variations: ${metrics.cacheSize}`);
+      console.log(`Cache size after 100 variations: ${metrics.cache.size}`);
     });
   });
 
@@ -382,7 +387,7 @@ describe('Pivot Performance Benchmarks', () => {
       aggregations.forEach(({ name, aggregation }) => {
         const config: PivotConfiguration = {
           ...basicConfiguration,
-          values: [{ name: 'sales', dataType: 'number', aggregation }]
+          values: [{ field: { id: `${Math.random()}`, name: 'sales', dataType: 'number' as const }, aggregation }]
         };
 
         const start = performance.now();
@@ -407,18 +412,19 @@ describe('Pivot Performance Benchmarks', () => {
 
     test('Multiple aggregations performance', () => {
       const multipleAggConfig: PivotConfiguration = {
-        rows: [{ name: 'region', dataType: 'string' }],
-        columns: [{ name: 'quarter', dataType: 'string' }],
+        rows: [{ id: `${Math.random()}`, name: 'region', dataType: 'string' as const }],
+        columns: [{ id: `${Math.random()}`, name: 'quarter', dataType: 'string' as const }],
         values: [
-          { name: 'sales', dataType: 'number', aggregation: 'sum' },
-          { name: 'sales', dataType: 'number', aggregation: 'avg' },
-          { name: 'sales', dataType: 'number', aggregation: 'count' },
-          { name: 'quantity', dataType: 'number', aggregation: 'sum' },
-          { name: 'quantity', dataType: 'number', aggregation: 'max' },
-          { name: 'cost', dataType: 'number', aggregation: 'min' }
+          { field: { id: `${Math.random()}`, name: 'sales', dataType: 'number' as const }, aggregation: 'sum' as const },
+          { field: { id: `${Math.random()}`, name: 'sales', dataType: 'number' as const }, aggregation: 'avg' as const },
+          { field: { id: `${Math.random()}`, name: 'sales', dataType: 'number' as const }, aggregation: 'count' as const },
+          { field: { id: `${Math.random()}`, name: 'quantity', dataType: 'number' as const }, aggregation: 'sum' as const },
+          { field: { id: `${Math.random()}`, name: 'quantity', dataType: 'number' as const }, aggregation: 'max' as const },
+          { field: { id: `${Math.random()}`, name: 'cost', dataType: 'number' as const }, aggregation: 'min' as const }
         ],
         filters: [],
-        options: { showGrandTotals: true, showSubtotals: true, computeMode: 'client' }
+        showGrandTotals: true,
+        showSubtotals: true
       };
 
       const start = performance.now();
@@ -478,7 +484,7 @@ describe('Pivot Performance Benchmarks', () => {
     test('Single filter performance', () => {
       const filterConfig: PivotConfiguration = {
         ...basicConfiguration,
-        filters: [{ name: 'sales', operator: 'greaterThan', value: 5000 }]
+        filters: [{ field: { id: `${Math.random()}`, name: 'sales', dataType: 'number' as const }, operator: 'greaterThan' as const, value: 5000 }]
       };
 
       const start = performance.now();
@@ -495,11 +501,11 @@ describe('Pivot Performance Benchmarks', () => {
       const multipleFilterConfig: PivotConfiguration = {
         ...basicConfiguration,
         filters: [
-          { name: 'sales', operator: 'greaterThan', value: 1000 },
-          { name: 'sales', operator: 'lessThan', value: 8000 },
-          { name: 'quantity', operator: 'greaterThan', value: 50 },
-          { name: 'region', operator: 'in', value: ['North', 'South'] },
-          { name: 'active', operator: 'equals', value: true }
+          { field: { id: `${Math.random()}`, name: 'sales', dataType: 'number' as const }, operator: 'greaterThan' as const, value: 1000 },
+          { field: { id: `${Math.random()}`, name: 'sales', dataType: 'number' as const }, operator: 'lessThan' as const, value: 8000 },
+          { field: { id: `${Math.random()}`, name: 'quantity', dataType: 'number' as const }, operator: 'greaterThan' as const, value: 50 },
+          { field: { id: `${Math.random()}`, name: 'region', dataType: 'string' as const }, operator: 'in' as const, value: ['North', 'South'] },
+          { field: { id: `${Math.random()}`, name: 'active', dataType: 'boolean' as const }, operator: 'equals' as const, value: true }
         ]
       };
 
@@ -517,10 +523,10 @@ describe('Pivot Performance Benchmarks', () => {
       const complexFilterConfig: PivotConfiguration = {
         ...complexConfiguration,
         filters: [
-          { name: 'sales', operator: 'between', value: [1000, 9000] },
-          { name: 'region', operator: 'contains', value: 'orth' },
-          { name: 'date', operator: 'greaterThan', value: '2023-06-01' },
-          { name: 'category', operator: 'notEquals', value: 'Economy' }
+          { field: { id: `${Math.random()}`, name: 'sales', dataType: 'number' as const }, operator: 'between' as const, value: [1000, 9000] },
+          { field: { id: `${Math.random()}`, name: 'region', dataType: 'string' as const }, operator: 'contains' as const, value: 'orth' },
+          { field: { id: `${Math.random()}`, name: 'date', dataType: 'date' as const }, operator: 'greaterThan' as const, value: '2023-06-01' },
+          { field: { id: `${Math.random()}`, name: 'category', dataType: 'string' as const }, operator: 'notEquals' as const, value: 'Economy' }
         ]
       };
 
@@ -578,11 +584,12 @@ describe('Pivot Performance Benchmarks', () => {
 
       dimensionTests.forEach(({ rows, cols, values }) => {
         const config: PivotConfiguration = {
-          rows: Array.from({ length: rows }, (_, i) => ({ name: ['region', 'product', 'category'][i], dataType: 'string' })),
-          columns: Array.from({ length: cols }, (_, i) => ({ name: ['quarter', 'month'][i], dataType: 'string' })),
-          values: Array.from({ length: values }, (_, i) => ({ name: ['sales', 'quantity', 'cost', 'profit', 'sales'][i], dataType: 'number', aggregation: 'sum' })),
+          rows: Array.from({ length: rows }, (_, i) => ({ id: `${Math.random()}`, name: ['region', 'product', 'category'][i], dataType: 'string' as const })),
+          columns: Array.from({ length: cols }, (_, i) => ({ id: `${Math.random()}`, name: ['quarter', 'month'][i], dataType: 'string' as const })),
+          values: Array.from({ length: values }, (_, i) => ({ field: { id: `${Math.random()}`, name: ['sales', 'quantity', 'cost', 'profit', 'sales'][i], dataType: 'number' as const }, aggregation: 'sum' as const })),
           filters: [],
-          options: { showGrandTotals: true, showSubtotals: true, computeMode: 'client' }
+          showGrandTotals: true,
+          showSubtotals: true
         };
 
         const start = performance.now();
@@ -617,7 +624,7 @@ describe('Pivot Performance Benchmarks', () => {
           name: 'Filtered pivot',
           config: {
             ...basicConfiguration,
-            filters: [{ name: 'sales', operator: 'greaterThan', value: 2000 }]
+            filters: [{ field: { id: `${Math.random()}`, name: 'sales', dataType: 'number' as const }, operator: 'greaterThan' as const, value: 2000 }]
           },
           maxTime: 1500
         }
@@ -638,9 +645,9 @@ describe('Pivot Performance Benchmarks', () => {
     test('Memory usage benchmarks', () => {
       const data = generateLargeDataset(15000);
 
-      const initialMemory = performanceManager.getMetrics().memoryUsage;
+      const initialMemory = performanceManager.getMetrics().memoryUsage.totalEstimate;
       const result = optimizedEngine.computePivot(data, complexConfiguration);
-      const finalMemory = performanceManager.getMetrics().memoryUsage;
+      const finalMemory = performanceManager.getMetrics().memoryUsage.totalEstimate;
 
       const memoryIncrease = finalMemory - initialMemory;
 
