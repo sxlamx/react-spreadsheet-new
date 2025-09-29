@@ -28,5 +28,11 @@ export * from './ExportManager';
 export * from './ExportUI';
 export { AdvancedExportManager, useAdvancedExportManager } from './AdvancedExportManager';
 
+// Performance and optimization
+export * from './PerformanceManager';
+export { OptimizedPivotEngine, useOptimizedPivotEngine } from './OptimizedPivotEngine';
+export { VirtualizedPivotTable } from './VirtualizedPivotTable';
+export { PerformanceMonitor, usePerformanceMonitoring } from './PerformanceMonitor';
+
 // Utilities
 export { getExpandablePaths, getAllPossiblePaths } from './DrillDownManager';

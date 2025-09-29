@@ -1,0 +1,474 @@
+/* Performance Monitor Styles */
+
+.PerformanceMonitor {
+  position: fixed;
+  z-index: 9999;
+  background-color: var(--monitor-background, rgba(255, 255, 255, 0.95));
+  border: 1px solid var(--monitor-border, #e0e0e0);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  min-width: 250px;
+  max-width: 350px;
+  color: var(--monitor-text, #333);
+  user-select: none;
+}
+
+/* Position variants */
+.PerformanceMonitor--top-left {
+  top: 16px;
+  left: 16px;
+}
+
+.PerformanceMonitor--top-right {
+  top: 16px;
+  right: 16px;
+}
+
+.PerformanceMonitor--bottom-left {
+  bottom: 16px;
+  left: 16px;
+}
+
+.PerformanceMonitor--bottom-right {
+  bottom: 16px;
+  right: 16px;
+}
+
+/* Toggle button */
+.PerformanceMonitor__toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 9998;
+  background-color: var(--toggle-background, #007bff);
+  color: var(--toggle-text, white);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.PerformanceMonitor__toggle:hover {
+  background-color: var(--toggle-hover-background, #0056b3);
+  transform: scale(1.1);
+}
+
+/* Header */
+.PerformanceMonitor__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: var(--header-background, #f8f9fa);
+  border-bottom: 1px solid var(--header-border, #e9ecef);
+  border-radius: 8px 8px 0 0;
+}
+
+.PerformanceMonitor__status {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.PerformanceMonitor__status--excellent {
+  color: var(--status-excellent, #28a745);
+}
+
+.PerformanceMonitor__status--good {
+  color: var(--status-good, #20c997);
+}
+
+.PerformanceMonitor__status--fair {
+  color: var(--status-fair, #ffc107);
+}
+
+.PerformanceMonitor__status--poor {
+  color: var(--status-poor, #dc3545);
+}
+
+.PerformanceMonitor__controls {
+  display: flex;
+  gap: 4px;
+}
+
+.PerformanceMonitor__control {
+  background: none;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 3px;
+  color: var(--control-color, #6c757d);
+  transition: background-color 0.15s ease;
+}
+
+.PerformanceMonitor__control:hover {
+  background-color: var(--control-hover-background, #e9ecef);
+}
+
+/* Content */
+.PerformanceMonitor__content {
+  padding: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Quick metrics */
+.PerformanceMonitor__quick-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.PerformanceMonitor__metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+  background-color: var(--metric-background, #f8f9fa);
+  border-radius: 4px;
+  border: 1px solid var(--metric-border, #e9ecef);
+}
+
+.PerformanceMonitor__metric-label {
+  color: var(--metric-label, #6c757d);
+  font-size: 10px;
+}
+
+.PerformanceMonitor__metric-value {
+  font-weight: 600;
+  color: var(--metric-value, #212529);
+}
+
+/* Performance charts */
+.PerformanceMonitor__charts {
+  margin-bottom: 12px;
+}
+
+.PerformanceChart {
+  margin-bottom: 8px;
+}
+
+.PerformanceChart__label {
+  font-size: 10px;
+  color: var(--chart-label, #6c757d);
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+
+.PerformanceChart__svg {
+  background-color: var(--chart-background, #f8f9fa);
+  border: 1px solid var(--chart-border, #e9ecef);
+  border-radius: 3px;
+  display: block;
+}
+
+/* Memory usage */
+.MemoryUsage {
+  margin-bottom: 12px;
+  padding: 8px;
+  background-color: var(--memory-background, #f8f9fa);
+  border-radius: 4px;
+  border: 1px solid var(--memory-border, #e9ecef);
+}
+
+.MemoryUsage__title {
+  font-size: 10px;
+  color: var(--memory-title, #6c757d);
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.MemoryUsage__bar {
+  height: 8px;
+  background-color: var(--memory-bar-background, #e9ecef);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.MemoryUsage__segment {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.MemoryUsage__segment--data {
+  background-color: var(--memory-data-color, #007bff);
+}
+
+.MemoryUsage__segment--structure {
+  background-color: var(--memory-structure-color, #28a745);
+}
+
+.MemoryUsage__label {
+  font-size: 9px;
+  color: var(--memory-label, #6c757d);
+  text-align: center;
+}
+
+/* Cache statistics */
+.CacheStats {
+  margin-bottom: 12px;
+  padding: 8px;
+  background-color: var(--cache-background, #f8f9fa);
+  border-radius: 4px;
+  border: 1px solid var(--cache-border, #e9ecef);
+}
+
+.CacheStats__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.CacheStats__title {
+  font-size: 10px;
+  color: var(--cache-title, #6c757d);
+  font-weight: 600;
+}
+
+.CacheStats__clear {
+  background: none;
+  border: none;
+  font-size: 10px;
+  cursor: pointer;
+  padding: 1px 3px;
+  border-radius: 2px;
+  color: var(--cache-clear-color, #dc3545);
+  transition: background-color 0.15s ease;
+}
+
+.CacheStats__clear:hover {
+  background-color: var(--cache-clear-hover-background, #f5c6cb);
+}
+
+.CacheStats__metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.CacheStats__hit-rate {
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.CacheStats__hit-rate--good {
+  color: var(--cache-good, #28a745);
+}
+
+.CacheStats__hit-rate--fair {
+  color: var(--cache-fair, #ffc107);
+}
+
+.CacheStats__hit-rate--poor {
+  color: var(--cache-poor, #dc3545);
+}
+
+.CacheStats__details,
+.CacheStats__size {
+  font-size: 9px;
+  color: var(--cache-details, #6c757d);
+}
+
+/* Detailed metrics */
+.PerformanceMonitor__detailed {
+  border-top: 1px solid var(--detailed-border, #e9ecef);
+  padding-top: 8px;
+  margin-top: 8px;
+}
+
+.PerformanceMonitor__section {
+  margin-bottom: 8px;
+}
+
+.PerformanceMonitor__section:last-child {
+  margin-bottom: 0;
+}
+
+.PerformanceMonitor__section-title {
+  font-size: 10px;
+  color: var(--section-title, #495057);
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.PerformanceMonitor__section-content {
+  font-size: 9px;
+  color: var(--section-content, #6c757d);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding-left: 8px;
+}
+
+/* Dark mode support */
+.Spreadsheet--dark-mode .PerformanceMonitor {
+  background-color: var(--monitor-background, rgba(45, 55, 72, 0.95));
+  border-color: var(--monitor-border, #4a5568);
+  color: var(--monitor-text, #e2e8f0);
+}
+
+.Spreadsheet--dark-mode .PerformanceMonitor__header {
+  background-color: var(--header-background, #2d3748);
+  border-color: var(--header-border, #4a5568);
+}
+
+.Spreadsheet--dark-mode .PerformanceMonitor__metric {
+  background-color: var(--metric-background, #2d3748);
+  border-color: var(--metric-border, #4a5568);
+}
+
+.Spreadsheet--dark-mode .PerformanceChart__svg {
+  background-color: var(--chart-background, #2d3748);
+  border-color: var(--chart-border, #4a5568);
+}
+
+.Spreadsheet--dark-mode .MemoryUsage {
+  background-color: var(--memory-background, #2d3748);
+  border-color: var(--memory-border, #4a5568);
+}
+
+.Spreadsheet--dark-mode .CacheStats {
+  background-color: var(--cache-background, #2d3748);
+  border-color: var(--cache-border, #4a5568);
+}
+
+.Spreadsheet--dark-mode .PerformanceMonitor__detailed {
+  border-color: var(--detailed-border, #4a5568);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .PerformanceMonitor {
+    min-width: 200px;
+    max-width: 250px;
+    font-size: 10px;
+  }
+
+  .PerformanceMonitor--top-left,
+  .PerformanceMonitor--top-right {
+    top: 8px;
+  }
+
+  .PerformanceMonitor--top-left,
+  .PerformanceMonitor--bottom-left {
+    left: 8px;
+  }
+
+  .PerformanceMonitor--top-right,
+  .PerformanceMonitor--bottom-right {
+    right: 8px;
+  }
+
+  .PerformanceMonitor--bottom-left,
+  .PerformanceMonitor--bottom-right {
+    bottom: 8px;
+  }
+
+  .PerformanceMonitor__toggle {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+    top: 8px;
+    right: 8px;
+  }
+
+  .PerformanceMonitor__quick-metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .PerformanceMonitor {
+    border-width: 2px;
+    background-color: white;
+    color: black;
+  }
+
+  .PerformanceMonitor__metric,
+  .MemoryUsage,
+  .CacheStats {
+    border-width: 2px;
+  }
+
+  .PerformanceMonitor__status--excellent {
+    color: #006600;
+  }
+
+  .PerformanceMonitor__status--good {
+    color: #008800;
+  }
+
+  .PerformanceMonitor__status--fair {
+    color: #cc8800;
+  }
+
+  .PerformanceMonitor__status--poor {
+    color: #cc0000;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .PerformanceMonitor__toggle,
+  .PerformanceMonitor__control,
+  .MemoryUsage__segment {
+    transition: none;
+  }
+
+  .PerformanceMonitor__toggle:hover {
+    transform: none;
+  }
+}
+
+/* Animation for alerts */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.PerformanceMonitor__status--poor {
+  animation: pulse 2s infinite;
+}
+
+/* Scrollbar styling for content */
+.PerformanceMonitor__content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.PerformanceMonitor__content::-webkit-scrollbar-track {
+  background: var(--scrollbar-track, #f1f1f1);
+}
+
+.PerformanceMonitor__content::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb, #c1c1c1);
+  border-radius: 2px;
+}
+
+.PerformanceMonitor__content::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover, #a8a8a8);
+}
+
+/* Print styles */
+@media print {
+  .PerformanceMonitor,
+  .PerformanceMonitor__toggle {
+    display: none;
+  }
+}
