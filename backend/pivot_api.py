@@ -17,9 +17,15 @@ import hashlib
 import asyncio
 from contextlib import asynccontextmanager
 import logging
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)
+log_level = os.getenv('LOG_LEVEL', 'INFO').upper()
+log_format = os.getenv('LOG_FORMAT', '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=getattr(logging, log_level), format=log_format)
 logger = logging.getLogger(__name__)
 
 # Data models for API requests/responses
@@ -111,10 +117,41 @@ class ExportConfig(BaseModel):
     includeGrandTotals: bool = True
     filename: Optional[str] = None
 
-# Global configuration
-DATA_BASE_PATH = Path("/data")
-CACHE_TTL = timedelta(minutes=30)
-MAX_CACHE_SIZE = 100
+# Global configuration from environment variables
+DATA_BASE_PATH = Path(os.getenv('DATA_BASE_PATH', '/data'))
+CACHE_TTL = timedelta(minutes=int(os.getenv('CACHE_TTL_MINUTES', '30')))
+MAX_CACHE_SIZE = int(os.getenv('MAX_CACHE_SIZE', '100'))
+
+# Server configuration
+HOST = os.getenv('HOST', '0.0.0.0')
+PORT = int(os.getenv('PORT', '8000'))
+WORKERS = int(os.getenv('WORKERS', '1'))
+RELOAD = os.getenv('RELOAD', 'false').lower() == 'true'
+
+# CORS configuration
+CORS_ORIGINS = json.loads(os.getenv('CORS_ORIGINS', '["*"]'))
+CORS_ALLOW_CREDENTIALS = os.getenv('CORS_ALLOW_CREDENTIALS', 'true').lower() == 'true'
+CORS_ALLOW_METHODS = json.loads(os.getenv('CORS_ALLOW_METHODS', '["*"]'))
+CORS_ALLOW_HEADERS = json.loads(os.getenv('CORS_ALLOW_HEADERS', '["*"]'))
+
+# Authentication configuration (for future JWT implementation)
+JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'your-super-secret-jwt-key-change-in-production')
+JWT_ALGORITHM = os.getenv('JWT_ALGORITHM', 'HS256')
+JWT_ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRE_MINUTES', '30'))
+JWT_REFRESH_TOKEN_EXPIRE_DAYS = int(os.getenv('JWT_REFRESH_TOKEN_EXPIRE_DAYS', '7'))
+
+# Google OAuth configuration (for future implementation)
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
+
+# Performance configuration
+MAX_ROWS_PER_QUERY = int(os.getenv('MAX_ROWS_PER_QUERY', '100000'))
+MAX_COLUMNS_PER_QUERY = int(os.getenv('MAX_COLUMNS_PER_QUERY', '1000'))
+QUERY_TIMEOUT_SECONDS = int(os.getenv('QUERY_TIMEOUT_SECONDS', '30'))
+
+# Development configuration
+DEBUG = os.getenv('DEBUG', 'false').lower() == 'true'
+TESTING = os.getenv('TESTING', 'false').lower() == 'true'
 
 # In-memory cache for computed pivot results
 pivot_cache: Dict[str, Dict[str, Any]] = {}
@@ -473,13 +510,13 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# CORS middleware
+# CORS middleware with environment configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Configure appropriately for production
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=CORS_ORIGINS,
+    allow_credentials=CORS_ALLOW_CREDENTIALS,
+    allow_methods=CORS_ALLOW_METHODS,
+    allow_headers=CORS_ALLOW_HEADERS,
 )
 
 # Health check endpoint
@@ -605,4 +642,11 @@ async def startup_event():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(
+        app,
+        host=HOST,
+        port=PORT,
+        workers=WORKERS if not RELOAD else 1,  # Workers must be 1 when reload is enabled
+        reload=RELOAD,
+        log_level=log_level.lower()
+    )
