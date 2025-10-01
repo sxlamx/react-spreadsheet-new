@@ -3,6 +3,7 @@
  * Provides type-safe methods for interacting with the DuckDB-powered backend
  */
 
+import React from 'react';
 import { PivotDataSet, PivotField, PivotConfiguration } from '../types';
 import { getSettingsManager, SpreadsheetSettings } from '../../config/settings';
 
@@ -233,17 +234,48 @@ export class PivotApiClient {
   }
 
   /**
-   * Export pivot table in specified format
+   * Export pivot table in specified format - returns blob for download
    */
   async exportPivot(
     format: string,
     request: PivotRequest,
     exportConfig: ExportConfig
-  ): Promise<{ message: string; rowCount: number; columnCount: number }> {
-    return this.request(`/pivot/export/${encodeURIComponent(format)}`, {
+  ): Promise<Blob> {
+    const url = `${this.baseUrl}/pivot/export/${encodeURIComponent(format)}`;
+
+    // Add authentication header if available
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      ...this.defaultHeaders
+    };
+
+    if (this.authToken && this.settings.auth.enabled) {
+      headers['Authorization'] = `Bearer ${this.authToken}`;
+    }
+
+    // FastAPI expects the body to match the endpoint parameters directly
+    // The endpoint signature is: export_pivot(format: str, request: PivotRequest, export_config: ExportConfig)
+    // So we send both objects at the top level
+    const response = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify({ ...request, exportConfig })
+      headers,
+      body: JSON.stringify({
+        ...request,
+        export_config: exportConfig
+      }),
+      signal: AbortSignal.timeout(this.settings.api.timeout)
     });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new PivotApiError(
+        errorData.detail || `Export failed: ${response.status}`,
+        response.status,
+        errorData
+      );
+    }
+
+    return response.blob();
   }
 
   /**

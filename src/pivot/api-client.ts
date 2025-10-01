@@ -197,10 +197,11 @@ export class PivotApiClient {
 
   /** Export pivot table in specified format */
   async exportPivot(
+    format: string,
     request: PivotRequest,
     exportConfig: ExportConfig
   ): Promise<Blob> {
-    const url = `${this.config.baseUrl}/pivot/export/${exportConfig.format}`;
+    const url = `${this.config.baseUrl}/pivot/export/${encodeURIComponent(format)}`;
 
     try {
       const response = await this.makeRequest(url, {
@@ -209,7 +210,10 @@ export class PivotApiClient {
           'Content-Type': 'application/json',
           ...this.config.headers,
         },
-        body: JSON.stringify({ ...request, exportConfig }),
+        body: JSON.stringify({
+          ...request,
+          export_config: exportConfig
+        }),
       });
 
       if (!response.ok) {
